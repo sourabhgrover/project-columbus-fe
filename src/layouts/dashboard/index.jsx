@@ -31,7 +31,7 @@ const navigation = [
   { name: 'Source Systems', href: '#', icon: FolderIcon, current: false },
   { name: 'Business Data Hub', href: 'set-targets', icon: CalendarIcon, current: false },
   { name: 'Use Case Catalog', href: 'set-targets', icon: CalendarIcon, current: false },
-  { name: 'Add a new use case', href: 'set-targets', icon: CalendarIcon, current: false },
+  { name: 'Add a new use case', href: '/add-use-case', icon: CalendarIcon, current: false },
   { name: 'Domain Data Products', href: 'set-targets', icon: CalendarIcon, current: false },
   { name: 'Data Lineage', href: 'control-flow', icon: ChartPieIcon, current: false },
   { name: 'Data Quality Engine', href: 'control-flow', icon: ChartPieIcon, current: false },
@@ -262,7 +262,7 @@ export default function DashboardLayout({ children }) {
                 <input
                   id="search-field"
                   className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Search..."
+                  placeholder="Search the right data and data products effortlessly..."
                   type="search"
                   name="search"
                 />
