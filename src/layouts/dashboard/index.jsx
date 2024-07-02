@@ -15,7 +15,7 @@ import {
   CalendarIcon,
   ChartPieIcon,
   Cog6ToothIcon,
-  DocumentDuplicateIcon,
+  // DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   UsersIcon,
@@ -25,12 +25,17 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
 
 const navigation = [
-  { name: 'DQScore', href: '#', icon: HomeIcon, current: true },
-  { name: 'DQDrill', href: '#', icon: UsersIcon, current: false },
-  { name: 'Compare', href: '#', icon: FolderIcon, current: false },
-  { name: 'Set Targets', href: 'set-targets', icon: CalendarIcon, current: false },
-  { name: 'Settings', href: 'settings', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Control Flow', href: 'control-flow', icon: ChartPieIcon, current: false },
+  { name: 'Home', href: '#', icon: HomeIcon, current: true },
+  { name: 'Business Glossary', href: '#', icon: UsersIcon, current: false },
+  { name: 'Add new Business Term', href: '/add-business-term', icon: UsersIcon, current: false },
+  { name: 'Source Systems', href: '#', icon: FolderIcon, current: false },
+  { name: 'Business Data Hub', href: 'set-targets', icon: CalendarIcon, current: false },
+  { name: 'Use Case Catalog', href: 'set-targets', icon: CalendarIcon, current: false },
+  { name: 'Add a new use case', href: 'set-targets', icon: CalendarIcon, current: false },
+  { name: 'Domain Data Products', href: 'set-targets', icon: CalendarIcon, current: false },
+  { name: 'Data Lineage', href: 'control-flow', icon: ChartPieIcon, current: false },
+  { name: 'Data Quality Engine', href: 'control-flow', icon: ChartPieIcon, current: false },
+  { name: 'Data Product Designer', href: 'control-flow', icon: ChartPieIcon, current: false },
 ]
 const teams = [
   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },

@@ -8,6 +8,7 @@ export const SetTargets = lazy(() => import("../pages/SetTargets"));
 export const Settings = lazy(() => import("../pages/Settings"));
 export const ControlFlow = lazy(() => import("../pages/ControlFlow"));
 export const PageNotFound = lazy(() => import("../pages/page-not-found"));
+export const AddBusinessTerm = lazy(() => import("../pages/addBusinessTerm"));
 
 
 export default function Router() {
@@ -28,7 +29,9 @@ export default function Router() {
         { element: <Home />, index: true },
         { path: 'settings', element: <Settings /> },
         { path: 'set-targets', element: <SetTargets /> },
-        { path: 'control-flow', element: <ControlFlow /> },
+        // { path: 'control-flow', element: <ControlFlow /> },
+        { path: 'add-business-term', element: <AddBusinessTerm /> }
+        
       ],
     },
     {
