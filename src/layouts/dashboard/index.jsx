@@ -262,7 +262,7 @@ export default function DashboardLayout({ children }) {
                 <input
                   id="search-field"
                   className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Search the right data and data products effortlessly..."
+                  placeholder="Ask a question..."
                   type="search"
                   name="search"
                 />
