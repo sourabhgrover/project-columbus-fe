@@ -38,6 +38,42 @@ const dummySources = [
         domain: 'R&D',
         objects: 1024,
     },
+    {
+        id: 5,
+        name: 'Source System 5',
+        description: 'A data lake that aggregates data from multiple sources, offering deep insights and advanced analytics capabilities.',
+        type: 'Data Lake',
+        status: 'Active',
+        domain: 'R&D',
+        objects: 1024,
+    },
+    {
+        id: 6,
+        name: 'Source System 6',
+        description: 'A data lake that aggregates data from multiple sources, offering deep insights and advanced analytics capabilities.',
+        type: 'Data Lake',
+        status: 'Active',
+        domain: 'R&D',
+        objects: 1024,
+    },
+    {
+        id: 7,
+        name: 'Source System 7',
+        description: 'A data lake that aggregates data from multiple sources, offering deep insights and advanced analytics capabilities.',
+        type: 'Data Lake',
+        status: 'Active',
+        domain: 'R&D',
+        objects: 1024,
+    },
+    {
+        id: 8,
+        name: 'Source System 8',
+        description: 'A data lake that aggregates data from multiple sources, offering deep insights and advanced analytics capabilities.',
+        type: 'Data Lake',
+        status: 'Active',
+        domain: 'R&D',
+        objects: 1024,
+    },
     // Add more dummy sources as needed
 ];
 
@@ -45,6 +81,7 @@ const SourceSystems = () => {
     const [sources, setSources] = useState(dummySources);
     const [editIndex, setEditIndex] = useState(null);
     const [editedSource, setEditedSource] = useState({});
+    const [visibleSources, setVisibleSources] = useState(6); // Initial number of visible sources
 
     const handleEditClick = (index) => {
         setEditIndex(index);
@@ -70,11 +107,15 @@ const SourceSystems = () => {
         setEditIndex(null);
     };
 
+    const handleViewMoreClick = () => {
+        setVisibleSources((prevVisibleSources) => prevVisibleSources + 6); // Increase visible sources by 6
+    };
+
     return (
         <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4">Source Systems</h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                {sources.map((source, index) => (
+                {sources.slice(0, visibleSources).map((source, index) => (
                     <div key={source.id} className="bg-white shadow-lg rounded-lg p-6 border-t-4" style={{ borderTopColor: source.status === 'Active' ? 'green' : 'red', minWidth: '300px' }}>
                         {editIndex === index ? (
                             <div>
@@ -167,6 +208,13 @@ const SourceSystems = () => {
                     </div>
                 ))}
             </div>
+            {visibleSources < sources.length && (
+                <div className="flex justify-center mt-4">
+                    <button onClick={handleViewMoreClick} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        View More
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
