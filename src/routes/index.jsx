@@ -10,7 +10,7 @@ export const ControlFlow = lazy(() => import("../pages/ControlFlow"));
 export const PageNotFound = lazy(() => import("../pages/page-not-found"));
 export const AddBusinessTerm = lazy(() => import("../pages/addBusinessTerm"));
 export const AddUseCase = lazy(() => import("../pages/addUseCase"));
-
+export const SourceSystem = lazy(() => import("../pages/sourceSystem"));
 
 export default function Router() {
   const routes = useRoutes([
@@ -32,7 +32,8 @@ export default function Router() {
         { path: 'set-targets', element: <SetTargets /> },
         // { path: 'control-flow', element: <ControlFlow /> },
         { path: 'add-business-term', element: <AddBusinessTerm /> },
-        { path: 'add-use-case', element: <AddUseCase /> }
+        { path: 'add-use-case', element: <AddUseCase /> },
+        { path: 'source-system', element: <SourceSystem /> }
       ],
     },
     {

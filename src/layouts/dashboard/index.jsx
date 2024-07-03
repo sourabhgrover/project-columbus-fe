@@ -28,7 +28,7 @@ const navigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: true },
   { name: 'Business Glossary', href: '#', icon: UsersIcon, current: false },
   { name: 'Add new Business Term', href: '/add-business-term', icon: UsersIcon, current: false },
-  { name: 'Source Systems', href: '#', icon: FolderIcon, current: false },
+  { name: 'Source Systems', href: '/source-system', icon: FolderIcon, current: false },
   { name: 'Business Data Hub', href: '#', icon: CalendarIcon, current: false },
   { name: 'Use Case Catalog', href: '#', icon: CalendarIcon, current: false },
   { name: 'Add a new use case', href: '/add-use-case', icon: CalendarIcon, current: false },

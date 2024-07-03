@@ -10,8 +10,7 @@ export default function Example() {
             Use Case Details
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            Add all the relevant details of the use case which might be relevant
-            for the users.
+            Add all the relevant details of the use case which might be relevant for the users.
           </p>
         </div>
 
@@ -23,7 +22,7 @@ export default function Example() {
                   htmlFor="usecase"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Use Case
+                  Use Case Type
                 </label>
                 <div className="mt-2">
                   <input
@@ -55,7 +54,7 @@ export default function Example() {
                   htmlFor="desc"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Description of Use Case
+                  Please give a brief description about this use case
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -73,7 +72,7 @@ export default function Example() {
                   htmlFor="value"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Business Value for the use case
+                  What is the Business Value for the use case?
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -91,7 +90,7 @@ export default function Example() {
                   htmlFor="how"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  How is this use case delivered
+                  How is this use case delivered?
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -133,7 +132,7 @@ export default function Example() {
                       <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      PNG, JPG up to 10MB
                     </p>
                   </div>
                 </div>
