@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import SourceSystems from '../components/sourceSystems'; // Adjust the path as necessary
 
-const SourceSystem = () => {
-  return (
-    <div>Source Systems</div>
-  )
+function Home() {
+    return (
+        <div className="p-4">
+            <SourceSystems />
+        </div>
+    );
 }
 
-export default SourceSystem
+export default Home;

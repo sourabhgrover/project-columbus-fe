@@ -11,6 +11,9 @@ export const PageNotFound = lazy(() => import("../pages/page-not-found"));
 export const AddBusinessTerm = lazy(() => import("../pages/addBusinessTerm"));
 export const AddUseCase = lazy(() => import("../pages/addUseCase"));
 export const SourceSystem = lazy(() => import("../pages/sourceSystem"));
+export const BusinessGlossary = lazy(() => import("../pages/businessGlossary"));
+export const UseCaseCatalog = lazy(() => import("../pages/useCaseCatalog"));
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -30,10 +33,12 @@ export default function Router() {
         { element: <Home />, index: true },
         { path: 'settings', element: <Settings /> },
         { path: 'set-targets', element: <SetTargets /> },
-        // { path: 'control-flow', element: <ControlFlow /> },
         { path: 'add-business-term', element: <AddBusinessTerm /> },
         { path: 'add-use-case', element: <AddUseCase /> },
-        { path: 'source-system', element: <SourceSystem /> }
+        { path: 'source-system', element: <SourceSystem /> },
+        { path: 'home', element: <Home /> },
+        { path: 'business-glossary', element: <BusinessGlossary /> },
+        { path: 'use-case-catalog', element: <UseCaseCatalog /> }
       ],
     },
     {

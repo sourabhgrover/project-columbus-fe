@@ -25,12 +25,12 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'Business Glossary', href: '#', icon: UsersIcon, current: false },
+  { name: 'Home', href: '/home', icon: HomeIcon, current: true },
+  { name: 'Business Glossary', href: '/business-glossary', icon: UsersIcon, current: false },
   { name: 'Add new Business Term', href: '/add-business-term', icon: UsersIcon, current: false },
   { name: 'Source Systems', href: '/source-system', icon: FolderIcon, current: false },
   { name: 'Business Data Hub', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Use Case Catalog', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Use Case Catalog', href: '/use-case-catalog', icon: CalendarIcon, current: false },
   { name: 'Add a new use case', href: '/add-use-case', icon: CalendarIcon, current: false },
   { name: 'Domain Data Products', href: '#', icon: CalendarIcon, current: false },
   { name: 'Data Contract Builder', href: '#', icon: ChartPieIcon, current: false },
