@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -8,59 +8,136 @@ import {
   MenuItem,
   MenuItems,
   TransitionChild,
-} from '@headlessui/react'
+} from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
   CalendarIcon,
-  ChartPieIcon,
   Cog6ToothIcon,
   // DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
+  PlusIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+  BeakerIcon,
+  BoltIcon,
+  CpuChipIcon,
+  CubeIcon,
+  BookOpenIcon,
+  WrenchIcon,
+  ShoppingBagIcon,
+  CircleStackIcon,
+  CurrencyEuroIcon,
+  RocketLaunchIcon
+} from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: 'Home', href: '/home', icon: HomeIcon, current: true },
-  { name: 'Business Glossary', href: '/business-glossary', icon: UsersIcon, current: false },
-  { name: 'Add new Business Term', href: '/add-business-term', icon: UsersIcon, current: false },
-  { name: 'Source Systems', href: '/source-system', icon: FolderIcon, current: false },
-  { name: 'Add Your Data', href: '/add-your-data', icon: FolderIcon, current: false },
-  { name: 'Request New Data', href: '/request-new-data', icon: FolderIcon, current: false },
-  { name: 'Business Data Hub', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Use Case Catalog', href: '/use-case-catalog', icon: CalendarIcon, current: false },
-  { name: 'Add a new use case', href: '/add-use-case', icon: CalendarIcon, current: false },
-  { name: 'Domain Data Products', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Data Contract Builder', href: '#', icon: ChartPieIcon, current: false },
-  { name: 'Data Lineage', href: 'control-flow', icon: ChartPieIcon, current: false },
-  { name: 'Data Quality Engine', href: 'control-flow', icon: ChartPieIcon, current: false },
-  { name: 'Data Product Designer', href: 'control-flow', icon: ChartPieIcon, current: false },
-]
-const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-]
+  { name: "Home", href: "/home", icon: HomeIcon, current: true },
+  {
+    name: "Business Glossary",
+    href: "/business-glossary",
+    icon: BookOpenIcon,
+    current: false,
+  },
+  {
+    name: "Add new Business Term",
+    href: "/add-business-term",
+    icon: PlusIcon,
+    current: false,
+  },
+  {
+    name: "Source Systems",
+    href: "/source-system",
+    icon: FolderIcon,
+    current: false,
+  },
+  {
+    name: "Add Your Data",
+    href: "/add-your-data",
+    icon: ShoppingBagIcon,
+    current: false,
+  },
+  {
+    name: "Request New Data",
+    href: "/request-new-data",
+    icon: WrenchIcon,
+    current: false,
+  },
+  { name: "Business Data Hub", href: "#", icon: CubeIcon, current: false },
+  {
+    name: "Use Case Catalog",
+    href: "/use-case-catalog",
+    icon: CurrencyEuroIcon,
+    current: false,
+  },
+  {
+    name: "Add a new use case",
+    href: "/add-use-case",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Domain Data Products",
+    href: "#",
+    icon: RocketLaunchIcon,
+    current: false,
+  },
+  {
+    name: "Data Contract Builder",
+    href: "#",
+    icon: CpuChipIcon,
+    current: false,
+  },
+  {
+    name: "Data Lineage",
+    href: "control-flow",
+    icon: CircleStackIcon,
+    current: false,
+  },
+  {
+    name: "Data Quality Engine",
+    href: "control-flow",
+    icon: BoltIcon,
+    current: false,
+  },
+  {
+    name: "Data Product Designer",
+    href: "control-flow",
+    icon: BeakerIcon,
+    current: false,
+  },
+];
+// const teams = [
+//   { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
+//   { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
+//   { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
+// ];
+
 const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+  { name: "Your profile", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function DashboardLayout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
       <div>
-        <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={setSidebarOpen}>
+        <Dialog
+          className="relative z-50 lg:hidden"
+          open={sidebarOpen}
+          onClose={setSidebarOpen}
+        >
           <DialogBackdrop
             transition
             className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
@@ -73,9 +150,16 @@ export default function DashboardLayout({ children }) {
             >
               <TransitionChild>
                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
-                  <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
+                  <button
+                    type="button"
+                    className="-m-2.5 p-2.5"
+                    onClick={() => setSidebarOpen(false)}
+                  >
                     <span className="sr-only">Close sidebar</span>
-                    <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                    <XMarkIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
                   </button>
                 </div>
               </TransitionChild>
@@ -106,16 +190,19 @@ export default function DashboardLayout({ children }) {
                               <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
                               {item.name}
                             </a> */}
-                             <Link
+                            <Link
                               to={item.href}
                               className={classNames(
                                 item.current
-                                  ? 'bg-gray-800 text-white'
-                                  : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
+                                  ? "bg-gray-800 text-white"
+                                  : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                               )}
                             >
-                              <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                              <item.icon
+                                className="h-6 w-6 shrink-0"
+                                aria-hidden="true"
+                              />
                               {item.name}
                             </Link>
                           </li>
@@ -145,12 +232,16 @@ export default function DashboardLayout({ children }) {
                         ))}
                       </ul>
                     </li> */}
+
                     <li className="mt-auto">
                       <a
                         href="#"
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                       >
-                        <Cog6ToothIcon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                        <Cog6ToothIcon
+                          className="h-6 w-6 shrink-0"
+                          aria-hidden="true"
+                        />
                         Settings
                       </a>
                     </li>
@@ -194,12 +285,15 @@ export default function DashboardLayout({ children }) {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-gray-800 text-white'
-                              : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
+                              ? "bg-gray-800 text-white"
+                              : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
-                          <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                          <item.icon
+                            className="h-6 w-6 shrink-0"
+                            aria-hidden="true"
+                          />
                           {item.name}
                         </Link>
                       </li>
@@ -234,7 +328,10 @@ export default function DashboardLayout({ children }) {
                     href="#"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                   >
-                    <Cog6ToothIcon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                    <Cog6ToothIcon
+                      className="h-6 w-6 shrink-0"
+                      aria-hidden="true"
+                    />
                     Settings
                   </a>
                 </li>
@@ -245,13 +342,20 @@ export default function DashboardLayout({ children }) {
 
         <div className="lg:pl-72">
           <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-            <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
+            <button
+              type="button"
+              className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+              onClick={() => setSidebarOpen(true)}
+            >
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
 
             {/* Separator */}
-            <div className="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
+            <div
+              className="h-6 w-px bg-gray-900/10 lg:hidden"
+              aria-hidden="true"
+            />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
               <form className="relative flex flex-1" action="#" method="GET">
@@ -271,13 +375,19 @@ export default function DashboardLayout({ children }) {
                 />
               </form>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
-                <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                <button
+                  type="button"
+                  className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+                >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Separator */}
-                <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true" />
+                <div
+                  className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
+                  aria-hidden="true"
+                />
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative">
@@ -289,10 +399,16 @@ export default function DashboardLayout({ children }) {
                       alt=""
                     />
                     <span className="hidden lg:flex lg:items-center">
-                      <span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
-                        Tom Cook
+                      <span
+                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                        aria-hidden="true"
+                      >
+                        Mayank Srivastava
                       </span>
-                      <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <ChevronDownIcon
+                        className="ml-2 h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
                     </span>
                   </MenuButton>
                   <MenuItems
@@ -305,8 +421,8 @@ export default function DashboardLayout({ children }) {
                           <a
                             href={item.href}
                             className={classNames(
-                              focus ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900',
+                              focus ? "bg-gray-50" : "",
+                              "block px-3 py-1 text-sm leading-6 text-gray-900"
                             )}
                           >
                             {item.name}
@@ -322,12 +438,12 @@ export default function DashboardLayout({ children }) {
 
           <main className="py-10">
             <div className="px-4 sm:px-6 lg:px-8">
-                {/* Your content */}
-                {children}
+              {/* Your content */}
+              {children}
             </div>
           </main>
         </div>
       </div>
     </>
-  )
+  );
 }
