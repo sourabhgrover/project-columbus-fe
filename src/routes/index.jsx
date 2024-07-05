@@ -15,6 +15,7 @@ export const BusinessGlossary = lazy(() => import("../pages/businessGlossary"));
 export const UseCaseCatalog = lazy(() => import("../pages/useCaseCatalog"));
 export const AddYourData = lazy(() => import("../pages/addYourData"));
 export const RequestData = lazy(() => import("../pages/requestNewData"));
+export const SourceSystemDetails = lazy(() => import("../pages/SourceSystemDetails"));
 
 
 
@@ -39,6 +40,7 @@ export default function Router() {
         { path: 'add-business-term', element: <AddBusinessTerm /> },
         { path: 'add-use-case', element: <AddUseCase /> },
         { path: 'source-system', element: <SourceSystem /> },
+        { path: 'source-system/:id', element: <SourceSystemDetails /> },
         { path: 'home', element: <Home /> },
         { path: 'business-glossary', element: <BusinessGlossary /> },
         { path: 'use-case-catalog', element: <UseCaseCatalog /> },

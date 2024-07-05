@@ -5,15 +5,17 @@ const initialState = {
   loading: false,
   schemaDetails: {},
   error: "",
+  success: false,
   id: "",
 };
 
 export const updateSchema = createAsyncThunk(
   "schemas/updateSchema",
   async (schema) => {
+    const { _id, ...updatedSchema } = schema;
     const response = await apiClient.patch(
-      `/schemas/${schema._id}/createCustomSchema`,
-      schema
+      `/schemas/${_id}/createCustomSchema`,
+      updatedSchema
     );
     return response.data;
   }
@@ -36,16 +38,19 @@ export const schemaDetails = createSlice({
   extraReducers: (builder) => {
     builder.addCase(updateSchema.pending, (state) => {
       state.loading = true;
+      state.success = false;
     });
     builder.addCase(updateSchema.fulfilled, (state, action) => {
       state.loading = false;
       state.schemaDetails = action.payload;
       state.error = "";
+      state.success = true;
     });
     builder.addCase(updateSchema.rejected, (state, action) => {
       state.loading = false;
       state.schemaDetails = {};
       state.error = action.error.message;
+      state.success = false;
     });
   },
 });
