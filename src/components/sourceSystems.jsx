@@ -9,7 +9,6 @@ const SourceSystems = () => {
   const dispatch = useDispatch();
   const schemaDataset = useSelector((state) => state.schemas);
   const { success } = useSelector((state) => state.schemaDetails);
-  console.log(success);
 
   // Fetch Schemas
   useEffect(() => {
@@ -70,7 +69,6 @@ const SourceSystems = () => {
     setVisibleSources((prevVisibleSources) => prevVisibleSources + 6); // Increase visible sources by 6
   };
 
-  console.log(editIndex, editedSource);
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">Source Systems</h2>
@@ -141,7 +139,7 @@ const SourceSystems = () => {
                     Description
                   </label>
                   <textarea
-                    name="description"
+                    name="comment"
                     value={editedSource?.comment}
                     onChange={handleInputChange}
                     className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
