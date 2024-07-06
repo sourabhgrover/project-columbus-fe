@@ -9,8 +9,12 @@ const UseCaseCatalog = () => {
   useEffect(() => {
     // Dispatch action to fetch data
     dispatch(fetchUseCase());
-  }, []);
+  }, [dispatch]);
   
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + '...';
+  };
 
   const handleViewMoreClick = () => {
     setVisibleUseCases((prevVisibleUseCases) => prevVisibleUseCases + 3); // Increase visible use cases by 3
@@ -18,7 +22,6 @@ const UseCaseCatalog = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Use Case Catalog</h2>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {data.slice(0, visibleUseCases).map((useCase) => (
           <div key={useCase?._id} className="bg-white shadow-lg rounded-lg p-4 border-t-4 border-blue-500">
@@ -29,8 +32,8 @@ const UseCaseCatalog = () => {
               className="w-full h-48 object-cover rounded-t-lg mb-4"
             />
             <h3 className="text-lg font-semibold mb-2">{useCase?.useCaseName}</h3>
-            <p className="text-sm text-gray-600 mb-2">{useCase?.useCaseType}</p>
-            <p className="text-sm text-gray-600 mb-2"><strong></strong> {useCase.businessValue}</p>
+            <p className="text-sm text-gray-600 mb-2">€{useCase?.valueInEuros} of value delivered</p>
+            <p className="text-sm text-gray-600 mb-2"><strong></strong> {truncateText(useCase?.businessValue, 100)}</p>
             <div className="flex justify-start mt-12"> {/* Align "View Details" button to the left */}
               <button className="bg-blue-600 text-white px-6 py-4 rounded-md hover:bg-blue-700">
                 View Details
