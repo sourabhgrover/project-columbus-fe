@@ -44,12 +44,12 @@ const navigation = [
     icon: BookOpenIcon,
     current: false,
   },
-  {
-    name: "Add new Business Term",
-    href: "/add-business-term",
-    icon: PlusIcon,
-    current: false,
-  },
+  // {
+  //   name: "Add new Business Term",
+  //   href: "/add-business-term",
+  //   icon: PlusIcon,
+  //   current: false,
+  // },
   {
     name: "Source Systems",
     href: "/source-system",

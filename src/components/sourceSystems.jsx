@@ -4,6 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSchemas } from "../rtk/schemas";
 import { Link } from "react-router-dom";
 import { updateSchema } from "../rtk/schemaDetails";
+import "react-resizable/css/styles.css"; // Import the styles for react-resizable
+
+const truncateText = (text, maxLength) => {
+  if (!text) return '';
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
+};
 
 const SourceSystems = () => {
   const dispatch = useDispatch();
@@ -13,7 +20,7 @@ const SourceSystems = () => {
   // Fetch Schemas
   useEffect(() => {
     dispatch(fetchSchemas());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (success) {
@@ -180,7 +187,7 @@ const SourceSystems = () => {
                       <strong>Number of Objects:</strong> {source.objects}
                     </p>
                     <p className="text-sm text-gray-700 mb-4">
-                      {source?.customSchema?.comment || source?.comment}
+                      {truncateText(source?.customSchema?.comment || source?.comment, 200)}
                     </p>
                   </div>
                   <button
@@ -191,9 +198,6 @@ const SourceSystems = () => {
                     <PencilIcon className="h-5 w-5" />
                   </button>
                 </div>
-                {/* <button className="mt-auto bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View More
-                                </button> */}
 
                 <Link
                   to={`/source-system/${source._id}`}
