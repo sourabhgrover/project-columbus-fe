@@ -1,12 +1,13 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import TagInput from "../components/tagInput";
-import { createBusinessTerm } from "../rtk/addBusinessTerm";
-import { useDispatch, useSelector } from "react-redux";
+import { createBusinessTerm , actions } from "../rtk/addBusinessTerm";
 import Toast from "../components/Toast";
-import { useNavigate } from "react-router-dom";
+
 
 export default function AddBusinessTerm() {
   const {
@@ -18,7 +19,8 @@ export default function AddBusinessTerm() {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { success } = useSelector((state) => state.manageBusinessTerm);
+  const { setBusinessTermSuccess } = actions;
+  const { success , error } = useSelector((state) => state.manageBusinessTerm);
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
@@ -32,10 +34,17 @@ export default function AddBusinessTerm() {
   useEffect(() => {
     if (success) {
       reset();
-      // navigate('/business-glossary');
+      dispatch(setBusinessTermSuccess(false));
+      navigate('/business-glossary');
     }
   }, [success]);
 
+
+  useEffect(() => {
+    if (error) {
+     console.error(error);
+    }
+  }, [error]);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-12">

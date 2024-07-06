@@ -23,11 +23,8 @@ export const addBusinessTerm = createSlice({
   name: "addBusinessTerm",
   initialState,
   reducers: {
-    setSchedDetailsLoading: (state, action) => {
-      state.loading = action.payload;
-    },
-    setSchedDetailsError: (state, action) => {
-      state.error = action.payload;
+    setBusinessTermSuccess: (state, action) => {
+      state.success = action.payload;
     },
   },
   extraReducers: (builder) => {
