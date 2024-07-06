@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: "",
   success: false,
+  data: [],
   id: "",
 };
 
@@ -15,6 +16,14 @@ export const createBusinessTerm = createAsyncThunk(
       `/businessTerms`,
       payload
     );
+    return response.data;
+  }
+);
+
+export const fetchBusinessTerms = createAsyncThunk(
+  "businessTerms/fetchBusinessTerms",
+  async () => {
+    const response = await apiClient.get("/businessTerms");
     return response.data;
   }
 );
@@ -41,6 +50,14 @@ export const addBusinessTerm = createSlice({
       state.loading = false;
       state.error = action.error.message;
       state.success = false;
+    });
+    builder.addCase(fetchBusinessTerms.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchBusinessTerms.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+      state.error = "";
     });
   },
 });
