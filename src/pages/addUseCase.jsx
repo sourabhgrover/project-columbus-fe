@@ -1,8 +1,11 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import DynamicLinks from "../components/dynamicLinks"; // Adjust the path if necessary
 import { useForm } from "react-hook-form";
-import { createUseCase } from "../rtk/useCase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { createUseCase , actions } from "../rtk/useCase";
+
 
 export default function AddUseCase() {
   const {
@@ -12,11 +15,29 @@ export default function AddUseCase() {
     setValue,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { setUseCaseSuccess } = actions;
+
+  const { success , error } = useSelector((state) => state.useCase);
 
   const onSubmit = (data) => {
     dispatch(createUseCase(data));
   };
+
+  useEffect(() => {
+    if (success) {
+      reset();
+      dispatch(setUseCaseSuccess(false));
+      navigate('/use-case-catalog');
+    }
+  }, [success]);
+
+  useEffect(() => {
+    if (error) {
+     console.error(error);
+    }
+  }, [error]);
   return (
     <div className="space-y-10 divide-y divide-gray-900/10">
       <form onSubmit={handleSubmit(onSubmit)}>

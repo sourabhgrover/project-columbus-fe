@@ -20,19 +20,19 @@ export const createUseCase = createAsyncThunk(
   }
 );
 
-// export const fetchBusinessTerms = createAsyncThunk(
-//   "businessTerms/fetchBusinessTerms",
-//   async () => {
-//     const response = await apiClient.get("/businessTerms");
-//     return response.data;
-//   }
-// );
+export const fetchUseCase = createAsyncThunk(
+  "useCase/fetchUseCase",
+  async () => {
+    const response = await apiClient.get("/useCase");
+    return response.data;
+  }
+);
 
 export const useCase = createSlice({
   name: "useCase",
   initialState,
   reducers: {
-    setBusinessTermSuccess: (state, action) => {
+    setUseCaseSuccess: (state, action) => {
       state.success = action.payload;
     },
   },
@@ -51,14 +51,14 @@ export const useCase = createSlice({
       state.error = action.error.message;
       state.success = false;
     });
-    // builder.addCase(fetchBusinessTerms.pending, (state, action) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(fetchBusinessTerms.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.data = action.payload;
-    //   state.error = "";
-    // });
+    builder.addCase(fetchUseCase.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchUseCase.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+      state.error = "";
+    });
   },
 });
 
