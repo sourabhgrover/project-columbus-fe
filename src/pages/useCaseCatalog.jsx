@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { fetchUseCase } from '../rtk/useCase';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UseCaseCatalog = () => {
-  const [useCases, setUseCases] = useState([]);
   const [visibleUseCases, setVisibleUseCases] = useState(3); // Initial number of visible use cases
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.useCase);
@@ -12,62 +10,7 @@ const UseCaseCatalog = () => {
     // Dispatch action to fetch data
     dispatch(fetchUseCase());
   }, []);
-  // useEffect(() => {
-  //   // Fetch the use cases from the backend
-  //   // Replace this with the actual backend API call when available
-  //   const fetchData = async () => {
-  //     // Dummy data for illustration
-  //     const dummyData = [
-  //       {
-  //         _id: '1',
-  //         useCaseType: 'Predictive Analytics',
-  //         useCaseName: 'Customer Churn Prediction',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1556761175-4b46a572b786',
-  //         businessValue: 'Reduces churn rate by 15%',
-  //       },
-  //       {
-  //         _id: '2',
-  //         useCaseType: 'Data Visualization',
-  //         useCaseName: 'Sales Performance Dashboard',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf',
-  //         businessValue: 'Improves sales insights by 20%',
-  //       },
-  //       {
-  //         _id: '3',
-  //         useCaseType: 'Machine Learning',
-  //         useCaseName: 'Image Recognition System',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1542744095-291d1f67b221',
-  //         businessValue: 'Increases accuracy by 25%',
-  //       },
-  //       {
-  //         _id: '4',
-  //         useCaseType: 'Natural Language Processing',
-  //         useCaseName: 'Sentiment Analysis Tool',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-  //         businessValue: 'Enhances customer feedback analysis',
-  //       },
-  //       {
-  //         _id: '5',
-  //         useCaseType: 'Big Data',
-  //         useCaseName: 'Real-time Analytics',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1542744173-05336fcc7ad4',
-  //         businessValue: 'Speeds up data processing by 30%',
-  //       },
-  //       {
-  //         _id: '6',
-  //         useCaseType: 'Business Intelligence',
-  //         useCaseName: 'Financial Reporting',
-  //         displayPhoto: 'https://images.unsplash.com/photo-1557425493-6f90ae4659fc',
-  //         businessValue: 'Streamlines financial reporting',
-  //       },
-  //     ];
-
-  //     // Simulate an API call
-  //     setUseCases(dummyData);
-  //   };
-
-  //   fetchData();
-  // }, []);
+  
 
   const handleViewMoreClick = () => {
     setVisibleUseCases((prevVisibleUseCases) => prevVisibleUseCases + 3); // Increase visible use cases by 3
