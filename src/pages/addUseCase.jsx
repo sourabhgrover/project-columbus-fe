@@ -1,9 +1,46 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import DynamicLinks from "../components/dynamicLinks"; // Adjust the path if necessary
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { createUseCase , actions } from "../rtk/useCase";
 
-export default function Example() {
+
+export default function AddUseCase() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { setUseCaseSuccess } = actions;
+
+  const { success , error } = useSelector((state) => state.useCase);
+
+  const onSubmit = (data) => {
+    dispatch(createUseCase(data));
+  };
+
+  useEffect(() => {
+    if (success) {
+      reset();
+      dispatch(setUseCaseSuccess(false));
+      navigate('/use-case-catalog');
+    }
+  }, [success]);
+
+  useEffect(() => {
+    if (error) {
+     console.error(error);
+    }
+  }, [error]);
   return (
     <div className="space-y-10 divide-y divide-gray-900/10">
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
         <div className="px-4 sm:px-0">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -14,7 +51,8 @@ export default function Example() {
           </p>
         </div>
 
-        <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+        {/* <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"> */}
+        <div  className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
           <div className="px-4 py-6 sm:p-8">
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
@@ -27,8 +65,9 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="usecase"
-                    id="usecase"
+                    // name="usecase"
+                    // id="usecase"
+                    {...register("useCaseType")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -43,8 +82,9 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    // name="name"
+                    // id="name"
+                    {...register("useCaseName")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -58,11 +98,12 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <textarea
-                    id="desc"
-                    name="desc"
+                    // id="desc"
+                    // name="desc"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
+                    {...register("description")}
                   />
                 </div>
               </div>
@@ -76,11 +117,13 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <textarea
-                    id="value"
-                    name="value"
+                    // id="value"
+                    // name="value"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
+                    {...register("businessValue")}
+                    
                   />
                 </div>
               </div>
@@ -94,11 +137,12 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <textarea
-                    id="how"
-                    name="how"
+                    // id="how"
+                    // name="how"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
+                    {...register("deliveryMethod")}
                   />
                 </div>
               </div>
@@ -143,7 +187,7 @@ export default function Example() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+          {/* <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
             <button
               type="button"
               className="text-sm font-semibold leading-6 text-gray-900"
@@ -156,8 +200,9 @@ export default function Example() {
             >
               Save
             </button>
-          </div>
-        </form>
+          </div> */}
+        {/* </form> */}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
@@ -171,7 +216,8 @@ export default function Example() {
           </p>
         </div>
 
-        <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+        {/* <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"> */}
+        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
           <div className="px-4 py-6 sm:p-8">
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
@@ -184,10 +230,11 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
+                    // name="first-name"
+                    // id="first-name"
+                    // autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    {...register("businessContact")}
                   />
                 </div>
               </div>
@@ -201,11 +248,12 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
+                    // id="email"
+                    // name="email"
                     type="email"
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    {...register("dataAndAnalyticsContact")}
                   />
                 </div>
               </div>
@@ -219,10 +267,11 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
+                    // id="country"
+                    // name="country"
+                    // autoComplete="country-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    {...register("domain")}
                   >
                     <option>Procurement</option>
                     <option>Finance</option>
@@ -251,8 +300,10 @@ export default function Example() {
               Save
             </button>
           </div>
-        </form>
+        {/* </form> */}
+        </div>
       </div>
+      </form>
     </div>
   );
 }
