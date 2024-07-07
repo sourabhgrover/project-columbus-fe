@@ -85,7 +85,7 @@ const SourceSystems = () => {
             key={source.id}
             className="bg-white shadow-lg rounded-lg p-6 border-t-4"
             style={{
-              borderTopColor: source.status === "Active" ? "green" : "red",
+              borderTopColor: source?.customSchema?.status === "Active" ? "green" : "red",
               minWidth: "300px",
             }}
           >
