@@ -17,6 +17,8 @@ export const AddYourData = lazy(() => import("../pages/addYourData"));
 export const RequestData = lazy(() => import("../pages/requestNewData"));
 export const SourceSystemDetails = lazy(() => import("../pages/SourceSystemDetails"));
 export const UseCaseDetails = lazy(() => import("../pages/useCaseDetails"));
+export const ViewBusinessTerm = lazy(() => import("../pages/viewBusinessTerm"));
+
 
 
 export default function Router() {
@@ -47,6 +49,7 @@ export default function Router() {
         { path: 'use-case-catalog/:id', element: <UseCaseDetails /> },
         { path: 'add-your-data', element: <AddYourData /> },
         { path: 'request-new-data', element: <RequestData /> },
+        { path: 'view-business-term', element: <ViewBusinessTerm /> },
         // { path: 'use-case-details', element: <UseCaseDetails /> }
       ],
     },

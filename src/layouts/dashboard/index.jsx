@@ -44,6 +44,12 @@ const navigation = [
     icon: BookOpenIcon,
     current: false,
   },
+  {
+    name: "View Business Term",
+    href: "/view-business-term",
+    icon: BookOpenIcon,
+    current: false,
+  },
   // {
   //   name: "Add new Business Term",
   //   href: "/add-business-term",

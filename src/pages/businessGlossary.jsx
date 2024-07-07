@@ -4,7 +4,7 @@ import { PlusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBusinessTerms } from "../rtk/addBusinessTerm";
-import { writeFile, utils } from 'xlsx';
+import { writeFile, utils } from "xlsx";
 import "react-resizable/css/styles.css"; // Import the styles for react-resizable
 
 const GlossaryPage = () => {
@@ -22,24 +22,36 @@ const GlossaryPage = () => {
     dispatch(fetchBusinessTerms());
   }, [dispatch]);
 
-  const handleResize = (header) => (e, { size }) => {
-    setWidths((prevWidths) => ({
-      ...prevWidths,
-      [header]: size.width,
-    }));
-  };
+  const handleResize =
+    (header) =>
+    (e, { size }) => {
+      setWidths((prevWidths) => ({
+        ...prevWidths,
+        [header]: size.width,
+      }));
+    };
 
   const resizeHandle = (
-    <div style={{ width: 4, height: "100%", backgroundColor: "rgba(0, 0, 0, 0.1)", cursor: "col-resize", position: "absolute", right: 0, top: 0 }} />
+    <div
+      style={{
+        width: 4,
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.1)",
+        cursor: "col-resize",
+        position: "absolute",
+        right: 0,
+        top: 0,
+      }}
+    />
   );
 
   const handleDownload = () => {
     const headers = ["Glossary Term Name", "Description", "Status", "Owner"];
-    const rows = data.map(term => [
+    const rows = data.map((term) => [
       term?.name,
       term?.definition,
       term?.status,
-      `${term?.owner?.firstName || ''} ${term?.owner?.lastName || ''}`
+      `${term?.owner?.firstName || ""} ${term?.owner?.lastName || ""}`,
     ]);
 
     const worksheet = utils.aoa_to_sheet([headers, ...rows]);
@@ -98,8 +110,21 @@ const GlossaryPage = () => {
                   />
                 }
               >
-                <div style={{ display: "flex", alignItems: "center", position: "relative", height: "100%" }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     Glossary Term Name
                   </div>
                   {resizeHandle}
@@ -132,8 +157,15 @@ const GlossaryPage = () => {
                   />
                 }
               >
-                <div style={{ display: "flex", alignItems: "center", position: "relative", height: "100%" }}>
-                  <div style={{ whiteSpace: 'normal', overflow: 'hidden' }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <div style={{ whiteSpace: "normal", overflow: "hidden" }}>
                     Description
                   </div>
                   {resizeHandle}
@@ -166,8 +198,21 @@ const GlossaryPage = () => {
                   />
                 }
               >
-                <div style={{ display: "flex", alignItems: "center", position: "relative", height: "100%" }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     Status
                   </div>
                   {resizeHandle}
@@ -200,8 +245,21 @@ const GlossaryPage = () => {
                   />
                 }
               >
-                <div style={{ display: "flex", alignItems: "center", position: "relative", height: "100%" }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     Owner
                   </div>
                   {resizeHandle}
@@ -213,16 +271,47 @@ const GlossaryPage = () => {
         <tbody className="bg-white divide-y divide-gray-200">
           {data.map((term) => (
             <tr key={term._id}>
-              <td className="px-6 py-4 text-sm font-medium text-gray-900" style={{ width: widths.name, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <td
+                className="px-6 py-4 text-sm font-medium text-gray-900"
+                style={{
+                  width: widths.name,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {term?.name}
               </td>
-              <td className="px-6 py-4 text-sm text-gray-500" style={{ width: widths.description, whiteSpace: 'normal', overflow: 'hidden' }}>
+              <td
+                className="px-6 py-4 text-sm text-gray-500"
+                style={{
+                  width: widths.description,
+                  whiteSpace: "normal",
+                  overflow: "hidden",
+                }}
+              >
                 {term?.definition}
               </td>
-              <td className="px-6 py-4 text-sm text-gray-500" style={{ width: widths.status, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {term?.status}
+              <td
+                className="px-6 py-4 text-sm text-gray-500"
+                style={{
+                  width: widths.status,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {term?.status || "Draft"} {/* Default value */}
               </td>
-              <td className="px-6 py-4 text-sm text-gray-500" style={{ width: widths.owner, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <td
+                className="px-6 py-4 text-sm text-gray-500"
+                style={{
+                  width: widths.owner,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {term?.owner?.firstName} {term?.owner?.lastName}
               </td>
             </tr>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import DynamicAttributes from "../components/dynamicAttributes"; // Adjust the path if necessary
 import TagInput from "../components/tagInput";
 import { createBusinessTerm , actions } from "../rtk/addBusinessTerm";
 import Toast from "../components/Toast";
@@ -144,6 +144,10 @@ export default function AddBusinessTerm() {
                 categorization.
               </p>
             </div>
+            <div className="col-span-full">
+                  <DynamicAttributes name="custAttr" setValue={setValue} />{" "}
+                  {/* Include the DynamicLinks component here */}
+                </div>
           </div>
         </div>
 
