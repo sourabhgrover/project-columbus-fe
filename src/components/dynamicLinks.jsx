@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"; // Importing the PlusIcon and TrashIcon
 
-function DynamicLinks() {
+function DynamicLinks({name,setValue}) {
   const [links, setLinks] = useState([{ linkType: "", link: "" }]);
 
   const handleAddLink = () => {
@@ -11,6 +11,23 @@ function DynamicLinks() {
   const handleDeleteLink = (index) => {
     setLinks(links.filter((_, i) => i !== index));
   };
+
+    // Function to handle changes to any of the link inputs or link types
+    const handleInputChange = (index, field, value) => {
+      // Update the corresponding field in the object at the given index
+      const updatedLinks = links.map((item, i) => {
+        if (i === index) {
+          return { ...item, [field]: value };
+        }
+        return item;
+      });
+      setLinks(updatedLinks);
+    };
+
+  useEffect(() => {
+    setValue(name, links)
+  }, [links])
+  
 
   return (
     <div>
@@ -38,6 +55,7 @@ function DynamicLinks() {
                   id={`link-type-${index}`}
                   className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="Type"
+                  onChange={(e) => handleInputChange(index, 'linkType', e.target.value)}
                 />
               </div>
             </div>
@@ -62,6 +80,7 @@ function DynamicLinks() {
                   id={`website-${index}`}
                   className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="www.example.com"
+                  onChange={(e) => handleInputChange(index, 'link', e.target.value)}
                 />
               </div>
             </div>

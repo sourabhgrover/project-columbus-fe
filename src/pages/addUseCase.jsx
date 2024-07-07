@@ -219,7 +219,7 @@ export default function AddUseCase() {
                   </div>
                 </div>
                 <div className="col-span-full">
-                  <DynamicLinks />{" "}
+                  <DynamicLinks name="links" setValue={setValue} />{" "}
                   {/* Include the DynamicLinks component here */}
                 </div>
               </div>

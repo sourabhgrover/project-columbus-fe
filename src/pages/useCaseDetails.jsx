@@ -1,3 +1,4 @@
+import React from "react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,17 +87,21 @@ export default function useCaseDetails() {
           </div>
              {/* This section will be dynaminc in future  */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">
-              Power BI
-            </dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <a
-                href="http://app.powerbi.com/revenuepredictionreport"
-                className="text-indigo-600 hover:text-indigo-500"
-              >
-                http://app.powerbi.com/revenuepredictionreport
-              </a>
-            </dd>
+            {selectedUseCase?.links.map((link) => (
+              <React.Fragment key={link._id}>
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  {link?.linkType}
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  <a
+                    href={link?.link}
+                    className="text-indigo-600 hover:text-indigo-500"
+                  >
+                    {link?.link}
+                  </a>
+                </dd>
+                </React.Fragment>
+            ))}
           </div>
          <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
   <div className="px-4 sm:px-0">
