@@ -1,15 +1,32 @@
 import { PaperClipIcon } from "@heroicons/react/20/solid";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchUseCase } from "../rtk/useCase";
 
 export default function useCaseDetails() {
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Dispatch action to fetch data
+    dispatch(fetchUseCase());
+  }, []);
+  const {data} = useSelector((state) => state.useCase);
+    let selectedUseCase = data.find((useCase) => useCase._id === id);
+    console.log(selectedUseCase);
+    
   return (
     <div>
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">
-          Customer Revenue prediction
+          {/* Customer Revenue prediction */}
+          {selectedUseCase?.useCaseName}
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Finding the most valuable customers, by scaling customer engagement
-          and reducing ‘the cost of visits.
+          {/* Finding the most valuable customers, by scaling customer engagement
+          and reducing ‘the cost of visits. */}
+          {selectedUseCase?.description}
         </p>
       </div>
       <div className="mt-6 border-t border-gray-100">
@@ -19,7 +36,7 @@ export default function useCaseDetails() {
               Use Case Name
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Customer Revenue prediction
+            {selectedUseCase?.useCaseName}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -27,7 +44,7 @@ export default function useCaseDetails() {
               Use Case Type
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Revenue Prediction Model
+            {selectedUseCase?.useCaseType}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -42,17 +59,13 @@ export default function useCaseDetails() {
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Why</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              In Q1 2023, sales team of FCP generated 1.5M euros making use of
-              the model, by bringing human touch and machine intelligence,
-              together
+            {selectedUseCase?.businessValue}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">How</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              The first ever machine learning model in production, meaning we
-              have a model that predicts and keeps learning from the hit/miss
-              rates of its predictions
+            {selectedUseCase?.deliveryMethod}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -60,7 +73,7 @@ export default function useCaseDetails() {
               Value in Euros
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              €5M per year revenue
+            {selectedUseCase?.valueInEuros}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -68,12 +81,10 @@ export default function useCaseDetails() {
               Value Description
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              The revenue growth potential is estimated to be over EUR5m per
-              year, as we reduce the amount of unsuccessful visits and increase
-              the hit rate of the sales people.
+            {selectedUseCase?.valueDescription}
             </dd>
           </div>
-
+             {/* This section will be dynaminc in future  */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Power BI
@@ -170,7 +181,7 @@ export default function useCaseDetails() {
                   Business Contact
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  Lampros Chortarias
+                {selectedUseCase?.businessContact}
                 </dd>
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -178,7 +189,7 @@ export default function useCaseDetails() {
                   D&A Contact
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  Mayank Srivastava
+                {selectedUseCase?.dataAndAnalyticsContact}
                 </dd>
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -186,7 +197,7 @@ export default function useCaseDetails() {
                   Domain
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  Supply Chain - Plan & Logistics
+                {selectedUseCase?.domain}
                 </dd>
               </div>
             </dl>

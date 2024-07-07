@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUseCase } from '../rtk/useCase';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const UseCaseCatalog = () => {
   const [visibleUseCases, setVisibleUseCases] = useState(3); // Initial number of visible use cases
@@ -35,9 +36,12 @@ const UseCaseCatalog = () => {
             <p className="text-sm text-gray-600 mb-2">€{useCase?.valueInEuros} of value delivered</p>
             <p className="text-sm text-gray-600 mb-2"><strong></strong> {truncateText(useCase?.businessValue, 100)}</p>
             <div className="flex justify-start mt-12"> {/* Align "View Details" button to the left */}
-              <button className="bg-blue-600 text-white px-6 py-4 rounded-md hover:bg-blue-700">
+              {/* <button className="bg-blue-600 text-white px-6 py-4 rounded-md hover:bg-blue-700">
                 View Details
-              </button>
+              </button> */}
+              <Link to={`/use-case-catalog/${useCase?._id}`} className="bg-blue-600 text-white px-6 py-4 rounded-md hover:bg-blue-700">
+                View Details
+              </Link>
             </div>
           </div>
         ))}

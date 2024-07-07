@@ -44,9 +44,10 @@ export default function Router() {
         { path: 'home', element: <Home /> },
         { path: 'business-glossary', element: <BusinessGlossary /> },
         { path: 'use-case-catalog', element: <UseCaseCatalog /> },
+        { path: 'use-case-catalog/:id', element: <UseCaseDetails /> },
         { path: 'add-your-data', element: <AddYourData /> },
         { path: 'request-new-data', element: <RequestData /> },
-        { path: 'use-case-details', element: <UseCaseDetails /> }
+        // { path: 'use-case-details', element: <UseCaseDetails /> }
       ],
     },
     {
