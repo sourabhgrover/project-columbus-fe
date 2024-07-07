@@ -76,6 +76,12 @@ const navigation = [
     current: false,
   },
   {
+    name: "Use Case Details",
+    href: "/use-case-details",
+    icon: CurrencyEuroIcon,
+    current: false,
+  },
+  {
     name: "Add a new use case",
     href: "/add-use-case",
     icon: CalendarIcon,
