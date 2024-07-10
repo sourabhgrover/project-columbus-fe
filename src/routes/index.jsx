@@ -45,6 +45,7 @@ export default function Router() {
         { path: 'source-system/:id', element: <SourceSystemDetails /> },
         { path: 'home', element: <Home /> },
         { path: 'business-glossary', element: <BusinessGlossary /> },
+        { path: 'business-glossary/:id', element: <ViewBusinessTerm /> },
         { path: 'use-case-catalog', element: <UseCaseCatalog /> },
         { path: 'use-case-catalog/:id', element: <UseCaseDetails /> },
         { path: 'add-your-data', element: <AddYourData /> },

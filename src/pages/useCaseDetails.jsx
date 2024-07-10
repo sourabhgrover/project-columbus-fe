@@ -15,7 +15,6 @@ export default function useCaseDetails() {
   }, []);
   const {data} = useSelector((state) => state.useCase);
     let selectedUseCase = data.find((useCase) => useCase._id === id);
-    console.log(selectedUseCase);
     
   return (
     <div>

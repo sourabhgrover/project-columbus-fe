@@ -280,7 +280,7 @@ const GlossaryPage = () => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {term?.name}
+               <Link to={"/business-glossary/"+term._id}> {term?.name}</Link>
               </td>
               <td
                 className="px-6 py-4 text-sm text-gray-500"
