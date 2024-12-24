@@ -12,24 +12,26 @@ import {
 import {
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
+  // CalendarIcon,
   Cog6ToothIcon,
   // DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  PlusIcon,
+  // PlusIcon,
   XMarkIcon,
-  BeakerIcon,
-  BoltIcon,
-  CpuChipIcon,
+  // BeakerIcon,
+  // BoltIcon,
+  // CpuChipIcon,
   CubeIcon,
   BookOpenIcon,
-  WrenchIcon,
-  ShoppingBagIcon,
-  CircleStackIcon,
-  CurrencyEuroIcon,
-  RocketLaunchIcon
+  // WrenchIcon,
+  // ShoppingBagIcon,
+  // CircleStackIcon,
+  // CurrencyEuroIcon,
+  // RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
+import { LightBulbIcon } from '@heroicons/react/24/solid';
+
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
@@ -44,24 +46,24 @@ const navigation = [
     icon: BookOpenIcon,
     current: false,
   },
-  {
-    name: "Add Business Glossary",
-    href: "/add-business-glossary",
-    icon: BookOpenIcon,
-    current: false,
-  },
+  // {
+  //   name: "Add Business Glossary",
+  //   href: "/add-business-glossary",
+  //   icon: BookOpenIcon,
+  //   current: false,
+  // },
   {
     name: "Business Terms",
     href: "/business-terms",
     icon: BookOpenIcon,
     current: false,
   },
-  {
-    name: "View Business Term",
-    href: "/view-business-term",
-    icon: BookOpenIcon,
-    current: false,
-  },
+  // {
+  //   name: "View Business Term",
+  //   href: "/view-business-term",
+  //   icon: BookOpenIcon,
+  //   current: false,
+  // },
   // {
   //   name: "Add new Business Term",
   //   href: "/add-business-term",
@@ -189,13 +191,7 @@ export default function DashboardLayout({ children }) {
               </TransitionChild>
               {/* Sidebar component, swap this element with another sidebar if you like */}
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                <div className="flex h-16 shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                </div>
+                <div className="flex h-16 shrink-0 items-center"></div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
@@ -281,11 +277,18 @@ export default function DashboardLayout({ children }) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
-              <img
+              {/* <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 alt="Lucerna"
-              />
+              /> */}
+              <div className="flex h-16 shrink-0 items-center">
+                <LightBulbIcon
+                  className="h-6 w-6 text-white"
+                  aria-hidden="true"
+                />
+                <span className="text-white font-bold text-xl ml-2">LUCERNA</span>
+              </div>
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -359,6 +362,7 @@ export default function DashboardLayout({ children }) {
                     Settings
                   </a>
                 </li>
+                
               </ul>
             </nav>
           </div>
