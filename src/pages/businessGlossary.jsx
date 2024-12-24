@@ -1,26 +1,41 @@
 // src/pages/BusinessGlossaryPage.jsx
-import React, { useState } from 'react';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import GlossaryCard from '../components/GlossaryCard'; // Importing the separated GlossaryCard component
+import React, { useState } from "react";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import GlossaryCard from "../components/GlossaryCard"; // Importing the separated GlossaryCard component
+import AddBusinessGlossary from "./addBusinessGlossary";
 
 const BusinessGlossaryPage = () => {
   // State for glossary items
   const [glossaries, setGlossaries] = useState([
-    { title: 'Plan and Delivery', description: 'Strategic planning and execution for product delivery.' },
-    { title: 'Make and Quality', description: 'Manufacturing processes and quality control procedures.' },
-    { title: 'Finance', description: 'Financial management and budgeting operations.' },
-    { title: 'Supply Chain', description: 'Logistics and supply chain management processes.' }
+    {
+      title: "Plan and Delivery",
+      description: "Strategic planning and execution for product delivery.",
+    },
+    {
+      title: "Make and Quality",
+      description: "Manufacturing processes and quality control procedures.",
+    },
+    {
+      title: "Finance",
+      description: "Financial management and budgeting operations.",
+    },
+    {
+      title: "Supply Chain",
+      description: "Logistics and supply chain management processes.",
+    },
   ]);
+
+  const [open, setOpen] = useState(false);
 
   // Handlers for user actions
   const handleAddGlossary = () => {
-    console.log('Add new glossary functionality!');
-    alert('Add new glossary functionality!');
+    setOpen(true)
+    ;
   };
 
   const handleDownload = () => {
-    console.log('Download Terms functionality!');
-    alert('Download Terms!');
+    console.log("Download Terms functionality!");
+    alert("Download Terms!");
   };
 
   return (
@@ -56,6 +71,7 @@ const BusinessGlossaryPage = () => {
           />
         ))}
       </div>
+      <AddBusinessGlossary open={open} setOpen={setOpen} />
     </div>
   );
 };
