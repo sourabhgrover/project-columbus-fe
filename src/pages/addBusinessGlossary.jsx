@@ -1,61 +1,149 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import PropTypes from "prop-types";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
-export default function Example({open, setOpen}) {
-  
+// Utility function for validation
+const validateInput = (value) => /^[a-zA-Z0-9\s]+$/.test(value);
+
+const Button = ({ onClick, children, className }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`${className} inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm`}
+  >
+    {children}
+  </button>
+);
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
+};
+
+export default function GlossaryDialog({ open, setOpen }) {
+  const [glossaryName, setGlossaryName] = useState("");
+
+  const handleClose = () => {
+    console.log("Dialog closed");
+    setOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (validateInput(value)) {
+      setGlossaryName(value);
+    } else {
+      console.error("Invalid input detected");
+    }
+  };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
-      <DialogBackdrop
-        transition
-        className="fixed inset-0 bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
-      />
-
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <Dialog
+      open={open}
+      onClose={setOpen}
+      className="relative z-10"
+      aria-labelledby="dialog-title"
+    >
+      <DialogBackdrop className="fixed inset-0 bg-gray-500/75 transition-opacity" />
+      <div className="fixed inset-0 z-10 overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <DialogPanel
-            transition
-            className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
-          >
+          <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+            <h2 id="dialog-title" className="sr-only">
+              Glossary Dialog
+            </h2>
             <div>
-              <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100">
-                <CheckIcon aria-hidden="true" className="size-6 text-green-600" />
+              <label
+                htmlFor="glossaryname"
+                className="block text-sm font-medium text-gray-900"
+              >
+                Business Glossary Name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="glossaryname"
+                  name="glossaryname"
+                  type="text"
+                  value={glossaryName}
+                  onChange={handleInputChange}
+                  placeholder="Provide a name for your business glossary"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-gray-300 focus:outline-indigo-600 sm:text-sm"
+                />
               </div>
-              <div className="mt-3 text-center sm:mt-5">
-                <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
-                  Payment successful
-                </DialogTitle>
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm/6 font-medium text-gray-900 mt-5"
+                >
+                  Description
+                </label>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius aliquam laudantium explicabo pariatur
-                    iste dolorem animi vitae error totam. At sapiente aliquam accusamus facere veritatis.
-                  </p>
+                  <textarea
+                    id="description"
+                    name="description"
+                    rows={4}
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    defaultValue="Provide a description for business glossary. For instance, purpose of the business glossary, intended usage etc."
+                    onFocus={(e) => {
+                      if (
+                        e.target.value ===
+                        "Provide a description for business glossary. For instance, purpose of the business glossary, intended usage etc."
+                      ) {
+                        e.target.value = ""; // Clear the default value
+                      }
+                    }}
+                  />
                 </div>
+              </div>
+              <label
+                htmlFor="domain"
+                className="block text-sm font-medium text-gray-900 mt-5"
+              >
+                Domain
+              </label>
+              <div className="relative mt-2">
+                <select
+                  id="domain"
+                  name="domain"
+                  defaultValue="Plan & Deliver"
+                  className="block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline-gray-300 focus:outline-indigo-600 sm:text-sm"
+                >
+                  <option>Plan & Deliver</option>
+                  <option>Finance</option>
+                  <option>Make & Quality</option>
+                </select>
+                <ChevronDownIcon
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
+                  aria-hidden="true"
+                />
               </div>
             </div>
             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+              <Button
+                onClick={handleClose}
+                className="bg-indigo-600 text-white hover:bg-indigo-500 sm:col-start-2"
               >
-                Deactivate
-              </button>
-              <button
-                type="button"
-                data-autofocus
-                onClick={() => setOpen(false)}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                Save
+              </Button>
+              <Button
+                onClick={handleClose}
+                className="bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
               >
                 Cancel
-              </button>
+              </Button>
             </div>
           </DialogPanel>
         </div>
       </div>
     </Dialog>
-  )
+  );
 }
+
+// Validate props for the GlossaryDialog component
+GlossaryDialog.propTypes = {
+  open: PropTypes.bool.isRequired, // Ensures `open` is a required boolean
+  setOpen: PropTypes.func.isRequired, // Ensures `setOpen` is a required function
+};
