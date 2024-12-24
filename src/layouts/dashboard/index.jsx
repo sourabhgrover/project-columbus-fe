@@ -45,6 +45,12 @@ const navigation = [
     current: false,
   },
   {
+    name: "Business Terms",
+    href: "/business-terms",
+    icon: BookOpenIcon,
+    current: false,
+  },
+  {
     name: "View Business Term",
     href: "/view-business-term",
     icon: BookOpenIcon,
