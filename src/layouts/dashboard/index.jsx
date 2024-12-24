@@ -69,7 +69,7 @@ const navigation = [
   //   current: false,
   // },
   {
-    name: "Source Systems",
+    name: "Source System Catalog",
     href: "/source-system",
     icon: FolderIcon,
     current: false,
