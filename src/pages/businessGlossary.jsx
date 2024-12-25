@@ -1,36 +1,28 @@
 // src/pages/BusinessGlossaryPage.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
 import GlossaryCard from "../components/GlossaryCard"; // Importing the separated GlossaryCard component
 import AddBusinessGlossary from "./addBusinessGlossary";
+import { fetchGlossaryEntries } from "../rtk/businessGlossarySlice";
 
 const BusinessGlossaryPage = () => {
+  const dispatch = useDispatch();
+  const { entries, status, error } = useSelector(
+    (state) => state.businessGlossary
+  );
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchGlossaryEntries());
+    }
+  }, [status, dispatch]);
   // State for glossary items
-  const [glossaries, setGlossaries] = useState([
-    {
-      title: "Plan and Delivery",
-      description: "Strategic planning and execution for product delivery.",
-    },
-    {
-      title: "Make and Quality",
-      description: "Manufacturing processes and quality control procedures.",
-    },
-    {
-      title: "Finance",
-      description: "Financial management and budgeting operations.",
-    },
-    {
-      title: "Supply Chain",
-      description: "Logistics and supply chain management processes.",
-    },
-  ]);
 
   const [open, setOpen] = useState(false);
 
   // Handlers for user actions
   const handleAddGlossary = () => {
-    setOpen(true)
-    ;
+    setOpen(true);
   };
 
   const handleDownload = () => {
@@ -51,23 +43,14 @@ const BusinessGlossaryPage = () => {
           </button>
         </div>
       </div>
-
+      {status === "loading" && <div>Loading...</div>}
+      {status === "failed" && <div>{error}</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* First row of glossary cards */}
-        {glossaries.slice(0, 3).map((glossary, index) => (
+        {entries.map((glossary) => (
           <GlossaryCard
-            key={index}
-            title={glossary.title}
-            description={glossary.description}
-          />
-        ))}
-
-        {/* Second row of glossary cards */}
-        {glossaries.slice(3).map((glossary, index) => (
-          <GlossaryCard
-            key={index}
-            title={glossary.title}
-            description={glossary.description}
+            key={glossary._id}
+            title={glossary.glossaryName}
+            description={glossary.dataSteward}
           />
         ))}
       </div>
