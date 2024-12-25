@@ -29,6 +29,8 @@ import {
   // CircleStackIcon,
   // CurrencyEuroIcon,
   // RocketLaunchIcon,
+  DocumentTextIcon,
+  PlusIcon
 } from "@heroicons/react/24/outline";
 import { LightBulbIcon } from '@heroicons/react/24/solid';
 
@@ -361,6 +363,26 @@ export default function DashboardLayout({ children }) {
                     />
                     Settings
                   </a>
+                  <a
+                    href="#"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                  >
+                    <PlusIcon
+                      className="h-6 w-6 shrink-0"
+                      aria-hidden="true"
+                    />
+                    Request a New Feature
+                  </a>
+                  <a
+                    href="#"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                  >
+                    <DocumentTextIcon
+                      className="h-6 w-6 shrink-0"
+                      aria-hidden="true"
+                    />
+                    Release Notes
+                  </a>
                 </li>
                 
               </ul>
@@ -397,7 +419,7 @@ export default function DashboardLayout({ children }) {
                 <input
                   id="search-field"
                   className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Ask a question..."
+                  placeholder="Search for..."
                   type="search"
                   name="search"
                 />
