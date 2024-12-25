@@ -56,6 +56,7 @@ export default function GlossaryDialog({ open, setOpen }) {
     dispatch(saveGlossaryEntry(data));
   };
 
+
   return (
     <Dialog
       open={open}
