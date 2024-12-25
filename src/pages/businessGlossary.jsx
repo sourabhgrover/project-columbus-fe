@@ -76,7 +76,7 @@ const BusinessGlossaryPage = () => {
             key={glossary._id}
             id={glossary._id}
             title={glossary.glossaryName}
-            description={glossary.dataSteward}
+            description={glossary.description}
             onDelete={handleDeleteGlossary} // Passing the delete handler to GlossaryCard
           />
         ))}

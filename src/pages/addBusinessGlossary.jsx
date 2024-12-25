@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { saveGlossaryEntry } from "../rtk/businessGlossarySlice";
 
 
-
 const Button = ({ onClick, children, className }) => (
   <button
     type="button"
@@ -56,7 +55,6 @@ export default function GlossaryDialog({ open, setOpen }) {
     dispatch(saveGlossaryEntry(data));
   };
 
-
   return (
     <Dialog
       open={open}
@@ -94,61 +92,83 @@ export default function GlossaryDialog({ open, setOpen }) {
                     </p>
                   )}
                 </div>
-                <div>
-                  <label
-                    htmlFor="description"
-                    className="block text-sm/6 font-medium text-gray-900 mt-5"
-                  >
-                    Description
-                  </label>
-                  <div className="mt-2">
-                    <textarea
-                      id="dataSteward"
-                      {...register("dataSteward", {
-                        required: "Description is required",
-                      })}
-                      rows={4}
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                      placeholder="Provide a description for business glossary. For instance, purpose of the business glossary, intended usage etc."
-                    />
-                    {errors.description && (
-                      <p className="mt-2 text-sm text-red-600">
-                        {errors.description.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
+              </div>
+
+              <div>
                 <label
-                  htmlFor="domain"
-                  className="block text-sm font-medium text-gray-900 mt-5"
+                  htmlFor="description"
+                  className="block text-sm/6 font-medium text-gray-900 mt-5"
                 >
-                  Domain
+                  Description
                 </label>
-                <div className="relative mt-2">
-                  <select
-                    id="domainId"
-                    {...register("domainId", { required: "Domain is required" })}
-                    className="block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline-gray-300 focus:outline-indigo-600 sm:text-sm"
-                  >
-                    {domains.map((domain) => (
-                      <option key={domain._id} value={domain._id}>
-                        {domain.domainName}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDownIcon
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
-                    aria-hidden="true"
+                <div className="mt-2">
+                  <textarea
+                    id="description"
+                    {...register("description", {
+                      required: "Description is required",
+                    })}
+                    rows={4}
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    placeholder="Provide a description for business glossary. For instance, purpose of the business glossary, intended usage etc."
                   />
+                  {errors.description && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {errors.description.message}
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                {/* <Button
-                onClick={handleClose}
-                className="bg-indigo-600 text-white hover:bg-indigo-500 sm:col-start-2"
+
+              <label
+                htmlFor="domain"
+                className="block text-sm font-medium text-gray-900 mt-5"
               >
-                Save
-              </Button> */}
+                Domain
+              </label>
+              <div className="relative mt-2">
+                <select
+                  id="domainId"
+                  {...register("domainId", { required: "Domain is required" })}
+                  className="block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline-gray-300 focus:outline-indigo-600 sm:text-sm"
+                >
+                  {domains.map((domain) => (
+                    <option key={domain._id} value={domain._id}>
+                      {domain.domainName}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDownIcon
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
+                  aria-hidden="true"
+                />
+              </div>
+
+              {/* Data Steward Text Box */}
+              <div className="mt-5">
+                <label
+                  htmlFor="dataSteward"
+                  className="block text-sm font-medium text-gray-900"
+                >
+                  Data Steward
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="dataSteward"
+                    placeholder="Start Typing to search for a data steward"
+                    {...register("dataSteward", {
+                      required: "Data steward is required",
+                    })}
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-gray-300 focus:outline-indigo-600 sm:text-sm"
+                  />
+                  {errors.dataSteward && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {errors.dataSteward.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                 <button
                   type="submit"
                   className="bg-indigo-600 text-white hover:bg-indigo-500 sm:col-start-2"
