@@ -24,7 +24,10 @@ export const deleteGlossaryEntry = createAsyncThunk('businessGlossary/deleteGlos
 
 const initialState = {
     entries: [],
-    status: 'idle',
+    fetchStatus: 'idle',
+    saveStatus: 'idle',
+    updateStatus: 'idle',
+    deleteStatus: 'idle',
     error: null,
   }
 
@@ -36,27 +39,51 @@ const businessGlossarySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchGlossaryEntries.pending, (state) => {
-        state.status = 'loading';
+        state.fetchStatus = 'loading';
       })
       .addCase(fetchGlossaryEntries.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.fetchStatus = 'succeeded';
         state.entries = action.payload;
       })
       .addCase(fetchGlossaryEntries.rejected, (state, action) => {
-        state.status = 'failed';
+        state.fetchStatus = 'failed';
         state.error = action.error.message;
       })
+      .addCase(saveGlossaryEntry.pending, (state) => {
+        state.saveStatus = 'loading';
+      })
       .addCase(saveGlossaryEntry.fulfilled, (state, action) => {
+        state.saveStatus = 'succeeded';
         state.entries.push(action.payload);
       })
+      .addCase(saveGlossaryEntry.rejected, (state, action) => {
+        state.saveStatus = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(updateGlossaryEntry.pending, (state) => {
+        state.updateStatus = 'loading';
+      })
       .addCase(updateGlossaryEntry.fulfilled, (state, action) => {
+        state.updateStatus = 'succeeded';
         const index = state.entries.findIndex(entry => entry.id === action.payload.id);
         if (index !== -1) {
           state.entries[index] = action.payload;
         }
       })
+      .addCase(updateGlossaryEntry.rejected, (state, action) => {
+        state.updateStatus = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(deleteGlossaryEntry.pending, (state) => {
+        state.deleteStatus = 'loading';
+      })
       .addCase(deleteGlossaryEntry.fulfilled, (state, action) => {
+        state.deleteStatus = 'succeeded';
         state.entries = state.entries.filter(entry => entry.id !== action.payload);
+      })
+      .addCase(deleteGlossaryEntry.rejected, (state, action) => {
+        state.deleteStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });

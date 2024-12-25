@@ -5,6 +5,7 @@ import  schemaDetailsReducer  from './schemaDetails'
 import  addBusinessTermReducer  from './addBusinessTerm'
 import  useCaseReducer  from './useCase'
 import businessGlossaryReducer from './businessGlossarySlice';
+import domainReducer from './domainSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     schemaDetails: schemaDetailsReducer,
     manageBusinessTerm: addBusinessTermReducer,
     useCase: useCaseReducer,
-    businessGlossary: businessGlossaryReducer
+    businessGlossary: businessGlossaryReducer,
+    domains: domainReducer,
   }
 })
 

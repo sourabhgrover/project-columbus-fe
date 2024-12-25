@@ -5,18 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import GlossaryCard from "../components/GlossaryCard"; // Importing the separated GlossaryCard component
 import AddBusinessGlossary from "./addBusinessGlossary";
 import { fetchGlossaryEntries } from "../rtk/businessGlossarySlice";
+import { fetchDomains } from "../rtk/domainSlice";
 
 const BusinessGlossaryPage = () => {
   const dispatch = useDispatch();
-  const { entries, status, error } = useSelector(
+  const { entries, fetchStatus, error } = useSelector(
     (state) => state.businessGlossary
   );
+  const {  status: domainStatus } = useSelector((state) => state.domains);
   useEffect(() => {
-    if (status === "idle") {
+    if (fetchStatus === "idle") {
       dispatch(fetchGlossaryEntries());
     }
-  }, [status, dispatch]);
-  // State for glossary items
+  }, [fetchStatus, dispatch]);
+  
+  useEffect(() => {
+    if (domainStatus === 'idle') {
+      dispatch(fetchDomains());
+    }
+  }, [domainStatus, dispatch]);
 
   const [open, setOpen] = useState(false);
 
@@ -43,8 +50,8 @@ const BusinessGlossaryPage = () => {
           </button>
         </div>
       </div>
-      {status === "loading" && <div>Loading...</div>}
-      {status === "failed" && <div>{error}</div>}
+      {fetchStatus === "loading" && <div>Loading...</div>}
+      {fetchStatus === "failed" && <div>{error}</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {entries.map((glossary) => (
           <GlossaryCard
