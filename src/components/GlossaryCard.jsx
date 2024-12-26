@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 import { deleteGlossaryEntry } from '../rtk/businessGlossarySlice'; // Import the delete action
+import { Link } from 'react-router-dom';
 
 const GlossaryCard = ({ id, title, description, imageUrl, onEdit }) => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -27,7 +28,7 @@ const GlossaryCard = ({ id, title, description, imageUrl, onEdit }) => {
         />
       )}
       <div className="mb-8">
-        <h3 className="text-xl font-semibold text-blue-600">{title}</h3>
+        <Link to={`/business-terms/${id}`}><h3 className="text-xl font-semibold text-blue-600">{title}</h3></Link>
         <p className="mt-2 text-gray-600">{description}</p>
       </div>
       <div className="absolute bottom-4 right-4 flex space-x-4">

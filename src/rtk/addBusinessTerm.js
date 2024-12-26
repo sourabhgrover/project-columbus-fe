@@ -28,6 +28,15 @@ export const fetchBusinessTerms = createAsyncThunk(
   }
 );
 
+// Async thunk to fetch business terms by glossary ID
+export const fetchBusinessTermsByGlossaryId = createAsyncThunk(
+  'businessTerms/fetchBusinessTermsByGlossaryId',
+  async (glossaryId) => {
+    const response = await apiClient.get(`/businessTerms/glossary/${glossaryId}`);
+    return response.data;
+  }
+);
+
 export const addBusinessTerm = createSlice({
   name: "addBusinessTerm",
   initialState,
@@ -58,6 +67,17 @@ export const addBusinessTerm = createSlice({
       state.loading = false;
       state.data = action.payload;
       state.error = "";
+    });
+    builder.addCase(fetchBusinessTermsByGlossaryId.pending, (state) => {
+      state.fetchStatus = 'loading';
+    })
+    .addCase(fetchBusinessTermsByGlossaryId.fulfilled, (state, action) => {
+      state.fetchStatus = 'succeeded';
+      state.data = action.payload;
+    })
+    .addCase(fetchBusinessTermsByGlossaryId.rejected, (state, action) => {
+      state.fetchStatus = 'failed';
+      state.error = action.error.message;
     });
   },
 });

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Resizable } from "react-resizable";
 import { PlusIcon, ArrowDownTrayIcon, ArrowUpTrayIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBusinessTerms } from "../rtk/addBusinessTerm";
+import { fetchBusinessTerms, fetchBusinessTermsByGlossaryId } from "../rtk/addBusinessTerm";
 import { writeFile, utils } from "xlsx";
 import "react-resizable/css/styles.css"; // Import the styles for react-resizable
 
-const GlossaryPage = () => {
+const BusinessTermsPage = () => {
+  const { id } = useParams(); // Fetch the id from the URL
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.manageBusinessTerm);
   const [widths, setWidths] = useState({
@@ -17,10 +18,17 @@ const GlossaryPage = () => {
     owner: 200,
   });
 
+  // useEffect(() => {
+  //   // Dispatch action to fetch data
+  //   dispatch(fetchBusinessTerms());
+  // }, [dispatch]);
+
   useEffect(() => {
-    // Dispatch action to fetch data
-    dispatch(fetchBusinessTerms());
-  }, [dispatch]);
+    if (id) {
+      // Dispatch action to fetch business terms based on the glossary id
+      dispatch(fetchBusinessTermsByGlossaryId(id));
+    }
+  }, [dispatch, id]);
 
   const handleResize =
     (header) =>
@@ -66,7 +74,7 @@ const GlossaryPage = () => {
       <div className="flex justify-between items-center mb-8">
         <div className="flex space-x-2">
           <Link
-            to="/add-business-term"
+            to={`/add-business-term/${id}`} // Pass the id to the add-business-term route
             className="bg-blue-500 text-white p-2 rounded-md flex items-center hover:bg-blue-600 text-xs"
           >
             <PlusIcon className="h-5 w-5 mr-2" />
@@ -328,4 +336,4 @@ const GlossaryPage = () => {
   );
 };
 
-export default GlossaryPage;
+export default BusinessTermsPage;

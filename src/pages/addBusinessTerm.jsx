@@ -1,7 +1,7 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import DynamicAttributes from "../components/dynamicAttributes"; // Adjust the path if necessary
 import TagInput from "../components/tagInput";
@@ -19,6 +19,7 @@ export default function AddBusinessTerm() {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams(); // Fetch the id from the URL
   const { setBusinessTermSuccess } = actions;
   const { success , error } = useSelector((state) => state.manageBusinessTerm);
   const [tags, setTags] = useState([]);
@@ -28,6 +29,7 @@ export default function AddBusinessTerm() {
   }, [tags]);
 
   const onSubmit = (data) => {
+    data.glossaryId = id;
     dispatch(createBusinessTerm(data));
   };
 
@@ -35,7 +37,8 @@ export default function AddBusinessTerm() {
     if (success) {
       reset();
       dispatch(setBusinessTermSuccess(false));
-      navigate('/business-glossary');
+      // navigate('/business-glossary');
+      navigate('/business-terms/' + id);
     }
   }, [success]);
 
