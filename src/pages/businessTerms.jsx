@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Resizable } from "react-resizable";
 import { PlusIcon, ArrowDownTrayIcon, ArrowUpTrayIcon } from "@heroicons/react/24/solid";
-import { Link , useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBusinessTerms, fetchBusinessTermsByGlossaryId } from "../rtk/addBusinessTerm";
 import { writeFile, utils } from "xlsx";
@@ -11,17 +10,6 @@ const BusinessTermsPage = () => {
   const { id } = useParams(); // Fetch the id from the URL
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.manageBusinessTerm);
-  const [widths, setWidths] = useState({
-    name: 200,
-    description: 300,
-    status: 150,
-    owner: 200,
-  });
-
-  // useEffect(() => {
-  //   // Dispatch action to fetch data
-  //   dispatch(fetchBusinessTerms());
-  // }, [dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -30,36 +18,12 @@ const BusinessTermsPage = () => {
     }
   }, [dispatch, id]);
 
-  const handleResize =
-    (header) =>
-    (e, { size }) => {
-      setWidths((prevWidths) => ({
-        ...prevWidths,
-        [header]: size.width,
-      }));
-    };
-
-  const resizeHandle = (
-    <div
-      style={{
-        width: 4,
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
-        cursor: "col-resize",
-        position: "absolute",
-        right: 0,
-        top: 0,
-      }}
-    />
-  );
-
   const handleDownload = () => {
-    const headers = ["Glossary Term Name", "Description", "Status", "Owner"];
+    const headers = ["Term Name", "Description", "Status"];
     const rows = data.map((term) => [
       term?.name,
       term?.definition,
       term?.status,
-      `${term?.owner?.firstName || ""} ${term?.owner?.lastName || ""}`,
     ]);
 
     const worksheet = utils.aoa_to_sheet([headers, ...rows]);
@@ -95,243 +59,67 @@ const BusinessTermsPage = () => {
           </button>
         </div>
       </div>
-      <table className="min-w-full divide-y divide-gray-200 text-xs">
-        <thead className="bg-gray-50">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
-            >
-              <Resizable
-                width={widths.name}
-                height={20}
-                axis="x"
-                resizeHandles={["e"]}
-                onResize={handleResize("name")}
-                minConstraints={[50, 20]}
-                maxConstraints={[500, 20]}
-                handle={
-                  <div
-                    style={{
-                      width: 4,
-                      height: "100%",
-                      cursor: "col-resize",
-                      backgroundColor: "transparent",
-                      position: "absolute",
-                      right: 0,
-                      top: 0,
-                    }}
-                  />
-                }
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-fixed text-xs">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <div
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    Glossary Term Name
-                  </div>
-                  {resizeHandle}
-                </div>
-              </Resizable>
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
-            >
-              <Resizable
-                width={widths.description}
-                height={20}
-                axis="x"
-                resizeHandles={["e"]}
-                onResize={handleResize("description")}
-                minConstraints={[100, 20]}
-                maxConstraints={[800, 20]}
-                handle={
-                  <div
-                    style={{
-                      width: 4,
-                      height: "100%",
-                      cursor: "col-resize",
-                      backgroundColor: "transparent",
-                      position: "absolute",
-                      right: 0,
-                      top: 0,
-                    }}
-                  />
-                }
+                Term Name
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <div style={{ whiteSpace: "normal", overflow: "hidden" }}>
-                    Description
-                  </div>
-                  {resizeHandle}
-                </div>
-              </Resizable>
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
-            >
-              <Resizable
-                width={widths.status}
-                height={20}
-                axis="x"
-                resizeHandles={["e"]}
-                onResize={handleResize("status")}
-                minConstraints={[50, 20]}
-                maxConstraints={[300, 20]}
-                handle={
-                  <div
-                    style={{
-                      width: 4,
-                      height: "100%",
-                      cursor: "col-resize",
-                      backgroundColor: "transparent",
-                      position: "absolute",
-                      right: 0,
-                      top: 0,
-                    }}
-                  />
-                }
+                Description
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <div
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    Status
-                  </div>
-                  {resizeHandle}
-                </div>
-              </Resizable>
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
-            >
-              <Resizable
-                width={widths.owner}
-                height={20}
-                axis="x"
-                resizeHandles={["e"]}
-                onResize={handleResize("owner")}
-                minConstraints={[50, 20]}
-                maxConstraints={[300, 20]}
-                handle={
-                  <div
-                    style={{
-                      width: 4,
-                      height: "100%",
-                      cursor: "col-resize",
-                      backgroundColor: "transparent",
-                      position: "absolute",
-                      right: 0,
-                      top: 0,
-                    }}
-                  />
-                }
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <div
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    Owner
-                  </div>
-                  {resizeHandle}
-                </div>
-              </Resizable>
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((term) => (
-            <tr key={term._id}>
-              <td
-                className="px-6 py-4 text-sm font-medium text-gray-900"
-                style={{
-                  width: widths.name,
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-               <Link to={"/business-glossary/"+term._id}> {term?.name}</Link>
-              </td>
-              <td
-                className="px-6 py-4 text-sm text-gray-500"
-                style={{
-                  width: widths.description,
-                  whiteSpace: "normal",
-                  overflow: "hidden",
-                }}
-              >
-                {term?.definition}
-              </td>
-              <td
-                className="px-6 py-4 text-sm text-gray-500"
-                style={{
-                  width: widths.status,
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {term?.status || "Draft"} {/* Default value */}
-              </td>
-              <td
-                className="px-6 py-4 text-sm text-gray-500"
-                style={{
-                  width: widths.owner,
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {term?.owner?.firstName} {term?.owner?.lastName}
-              </td>
+                Status
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white">
+            {data.map((term) => (
+              <tr key={term._id} className="border-t border-gray-200">
+                <td
+                  className="px-6 py-4 text-sm font-medium text-gray-900"
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  <Link to={`/business-glossary/${term._id}`}>{term?.name}</Link>
+                </td>
+                <td
+                  className="px-6 py-4 text-sm text-gray-500"
+                  style={{
+                    whiteSpace: "normal",
+                    overflow: "hidden",
+                  }}
+                >
+                  {term?.definition}
+                </td>
+                <td
+                  className="px-6 py-4 text-sm text-gray-500"
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {term?.status || "Draft"} {/* Default value */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

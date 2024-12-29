@@ -37,6 +37,19 @@ export const fetchBusinessTermsByGlossaryId = createAsyncThunk(
   }
 );
 
+// Async thunk to update a business term
+export const updateBusinessTerm = createAsyncThunk(
+  "businessTerms/updateBusinessTerm",
+  async ({ id, updatedData }, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.put(`/businessTerms/${id}`, updatedData);
+      return response.data; // Return the updated term to update the state
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update business term");
+    }
+  }
+);
+
 export const addBusinessTerm = createSlice({
   name: "addBusinessTerm",
   initialState,
@@ -81,6 +94,19 @@ export const addBusinessTerm = createSlice({
     });
   },
 });
+
+
+export const deleteBusinessTerm = createAsyncThunk(
+  "businessTerms/deleteBusinessTerm",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.delete(`/businessTerms/${id}`);
+      return id; // Return the deleted term ID to update the state
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to delete business term");
+    }
+  }
+);
 
 export const { actions, reducer } = addBusinessTerm;
 export default addBusinessTerm.reducer;
