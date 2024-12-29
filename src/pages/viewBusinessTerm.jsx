@@ -50,7 +50,10 @@ export default function ViewBusinessTerm() {
     navigator.clipboard
       .writeText(shareUrl) // Copy the URL to clipboard
       .then(() => {
-        setAlert({ message: "Business term URL copied to clipboard!", type: "info" });
+        setAlert({
+          message: "Business term URL copied to clipboard!",
+          type: "info",
+        });
       })
       .catch((err) => {
         setAlert({ message: "Failed to copy URL: " + err, type: "error" });
@@ -72,7 +75,10 @@ export default function ViewBusinessTerm() {
       setIsDeleting(true);
       try {
         await dispatch(deleteBusinessTerm(id)).unwrap();
-        setAlert({ message: "Business term deleted successfully.", type: "success" });
+        setAlert({
+          message: "Business term deleted successfully.",
+          type: "success",
+        });
 
         // After successful deletion, navigate back to the glossary page with glossaryId
         if (glossaryId) {
@@ -81,7 +87,10 @@ export default function ViewBusinessTerm() {
           navigate("/business-terms"); // Default if no glossaryId is found
         }
       } catch (error) {
-        setAlert({ message: "Failed to delete business term. Please try again.", type: "error" });
+        setAlert({
+          message: "Failed to delete business term. Please try again.",
+          type: "error",
+        });
       } finally {
         setIsDeleting(false);
       }
@@ -106,12 +115,18 @@ export default function ViewBusinessTerm() {
     try {
       if (actionType === "create") {
         await dispatch(createBusinessTerm(formData)).unwrap();
-        setAlert({ message: "Business term created successfully.", type: "success" });
+        setAlert({
+          message: "Business term created successfully.",
+          type: "success",
+        });
       } else if (actionType === "edit") {
         await dispatch(
           updateBusinessTerm({ id, updatedData: formData })
         ).unwrap();
-        setAlert({ message: "Business term updated successfully.", type: "success" });
+        setAlert({
+          message: "Business term updated successfully.",
+          type: "success",
+        });
         setOriginalData(formData);
       }
 
@@ -120,7 +135,10 @@ export default function ViewBusinessTerm() {
 
       setIsEditing(false);
     } catch (error) {
-      setAlert({ message: "Failed to save business term. Please try again.", type: "error" });
+      setAlert({
+        message: "Failed to save business term. Please try again.",
+        type: "error",
+      });
     } finally {
       setIsSaving(false);
     }
@@ -236,17 +254,25 @@ export default function ViewBusinessTerm() {
           </div>
 
           {/* Status Input */}
+          {/* Status Dropdown */}
           <div className="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
             <dt className="text-sm font-medium text-gray-900">Status</dt>
             <dd className="text-sm text-gray-700 sm:col-span-2">
               {isEditing ? (
-                <input
-                  type="text"
+                <select
                   name="status"
                   value={formData.status || ""}
                   onChange={handleChange}
                   className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                />
+                >
+                  <option value="" disabled>
+                    Select a status
+                  </option>
+                  <option value="Approved">Approved</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Deprecated">Deprecated</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
               ) : (
                 selectedBusinessTerm?.status
               )}
