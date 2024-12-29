@@ -1,9 +1,14 @@
-import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { PencilIcon, TrashIcon, ShareIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchBusinessTerms, deleteBusinessTerm, updateBusinessTerm, createBusinessTerm } from "../rtk/addBusinessTerm";
+import {
+  fetchBusinessTerms,
+  deleteBusinessTerm,
+  updateBusinessTerm,
+  createBusinessTerm,
+} from "../rtk/addBusinessTerm";
 import { useEffect, useState } from "react";
-import { set } from "mongoose";
+import Alert from "../components/alerts"; // Import Alert component
 
 export default function ViewBusinessTerm() {
   const { id } = useParams();
@@ -16,13 +21,16 @@ export default function ViewBusinessTerm() {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [actionType, setActionType] = useState(""); // Action type: 'edit', 'create', 'delete'
+  const [alert, setAlert] = useState(null); // State for showing alerts
 
   // Fetch business terms when component loads
   useEffect(() => {
     dispatch(fetchBusinessTerms());
   }, [dispatch]);
 
-  const { data, loading, error } = useSelector((state) => state.manageBusinessTerm);
+  const { data, loading, error } = useSelector(
+    (state) => state.manageBusinessTerm
+  );
   const selectedBusinessTerm = data.find((term) => term._id === id);
 
   // Update local state when a term is selected
@@ -30,11 +38,24 @@ export default function ViewBusinessTerm() {
     if (selectedBusinessTerm) {
       setFormData(selectedBusinessTerm);
       setOriginalData(selectedBusinessTerm);
-      setActionType("edit");  // If selected, action is edit
+      setActionType("edit"); // If selected, action is edit
     } else {
       setActionType("create"); // No term selected, so it's a create
     }
   }, [selectedBusinessTerm]);
+
+  // Handle share functionality
+  const handleShare = () => {
+    const shareUrl = window.location.href; // Get the current URL (link to this business term)
+    navigator.clipboard
+      .writeText(shareUrl) // Copy the URL to clipboard
+      .then(() => {
+        setAlert({ message: "Business term URL copied to clipboard!", type: "info" });
+      })
+      .catch((err) => {
+        setAlert({ message: "Failed to copy URL: " + err, type: "error" });
+      });
+  };
 
   // Handle field changes
   const handleChange = (e) => {
@@ -42,10 +63,8 @@ export default function ViewBusinessTerm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
-
   // Assuming glossaryId is a property of the selectedBusinessTerm
-  const glossaryId = selectedBusinessTerm?.glossaryId;  // Replace with actual property name
+  const glossaryId = selectedBusinessTerm?.glossaryId; // Replace with actual property name
 
   // Delete business term
   const handleDelete = async () => {
@@ -53,7 +72,7 @@ export default function ViewBusinessTerm() {
       setIsDeleting(true);
       try {
         await dispatch(deleteBusinessTerm(id)).unwrap();
-        alert("Business term deleted successfully.");
+        setAlert({ message: "Business term deleted successfully.", type: "success" });
 
         // After successful deletion, navigate back to the glossary page with glossaryId
         if (glossaryId) {
@@ -62,7 +81,7 @@ export default function ViewBusinessTerm() {
           navigate("/business-terms"); // Default if no glossaryId is found
         }
       } catch (error) {
-        alert("Failed to delete business term. Please try again.");
+        setAlert({ message: "Failed to delete business term. Please try again.", type: "error" });
       } finally {
         setIsDeleting(false);
       }
@@ -87,10 +106,12 @@ export default function ViewBusinessTerm() {
     try {
       if (actionType === "create") {
         await dispatch(createBusinessTerm(formData)).unwrap();
-        alert("Business term created successfully.");
+        setAlert({ message: "Business term created successfully.", type: "success" });
       } else if (actionType === "edit") {
-        await dispatch(updateBusinessTerm({ id, updatedData: formData })).unwrap();
-        alert("Business term updated successfully.");
+        await dispatch(
+          updateBusinessTerm({ id, updatedData: formData })
+        ).unwrap();
+        setAlert({ message: "Business term updated successfully.", type: "success" });
         setOriginalData(formData);
       }
 
@@ -99,7 +120,7 @@ export default function ViewBusinessTerm() {
 
       setIsEditing(false);
     } catch (error) {
-      alert("Failed to save business term. Please try again.");
+      setAlert({ message: "Failed to save business term. Please try again.", type: "error" });
     } finally {
       setIsSaving(false);
     }
@@ -119,9 +140,25 @@ export default function ViewBusinessTerm() {
 
   return (
     <div>
+      {/* Alert */}
+      {alert && <Alert message={alert.message} type={alert.type} />}
+
       <div className="px-4 sm:px-0">
-        <h3 className="text-2xl font-bold leading-7 text-gray-600">
-          {actionType === "create" ? "Create New Business Term" : selectedBusinessTerm?.name}
+        <h3 className="text-2xl font-bold leading-7 text-gray-600 flex items-center">
+          {actionType === "create" ? (
+            "Create New Business Term"
+          ) : (
+            <>
+              {selectedBusinessTerm?.name}
+              {/* Share Icon */}
+              <button
+                onClick={handleShare}
+                className="ml-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                <ShareIcon className="h-5 w-5" />
+              </button>
+            </>
+          )}
         </h3>
       </div>
       <div className="mt-6 border-t border-gray-100">
@@ -193,7 +230,7 @@ export default function ViewBusinessTerm() {
                   className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                 />
               ) : (
-                selectedBusinessTerm?.owner
+                selectedBusinessTerm?.owner.firstName
               )}
             </dd>
           </div>
