@@ -30,9 +30,9 @@ import {
   // CurrencyEuroIcon,
   // RocketLaunchIcon,
   DocumentTextIcon,
-  PlusIcon
+  PlusIcon,
 } from "@heroicons/react/24/outline";
-import { LightBulbIcon } from '@heroicons/react/24/solid';
+import { LightBulbIcon } from "@heroicons/react/24/solid";
 
 import {
   ChevronDownIcon,
@@ -151,6 +151,12 @@ const userNavigation = [
   { name: "Sign out", href: "#" },
 ];
 
+const lowerNavigation = [
+  { name: "Settings", href: "settings", icon: Cog6ToothIcon, visible: true },
+  { name: "Request a New Feature", href: "#", icon: PlusIcon, visible: true },
+  { name: "Release Notes", href: "#", icon: DocumentTextIcon, visible: true },
+];
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -255,7 +261,7 @@ export default function DashboardLayout({ children }) {
                       </ul>
                     </li> */}
 
-                    <li className="mt-auto">
+                    {/* <li className="mt-auto">
                       <a
                         href="#"
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
@@ -266,7 +272,7 @@ export default function DashboardLayout({ children }) {
                         />
                         Settings
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </nav>
               </div>
@@ -289,7 +295,9 @@ export default function DashboardLayout({ children }) {
                   className="h-6 w-6 text-white"
                   aria-hidden="true"
                 />
-                <span className="text-white font-bold text-xl ml-2">LUCERNA</span>
+                <span className="text-white font-bold text-xl ml-2">
+                  LUCERNA
+                </span>
               </div>
             </div>
             <nav className="flex flex-1 flex-col">
@@ -352,7 +360,7 @@ export default function DashboardLayout({ children }) {
                     ))}
                   </ul>
                 </li> */}
-                <li className="mt-auto">
+                {/* <li className="mt-auto">
                   <a
                     href="#"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
@@ -383,8 +391,43 @@ export default function DashboardLayout({ children }) {
                     />
                     Release Notes
                   </a>
+                </li> */}
+
+                <li className="mt-auto">
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {lowerNavigation
+                      .filter((item) => item.visible)
+                      .map((item) => (
+                        <li key={item.name}>
+                          {/* <a
+                            href={item.href}
+                            className="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                          >
+                            <item.icon
+                              className="h-6 w-6 shrink-0"
+                              aria-hidden="true"
+                            />
+                            </a> */}
+                            <Link
+                              to={item.href}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-800 text-white"
+                                  : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                              )}
+                            >
+                              <item.icon
+                                className="h-6 w-6 shrink-0"
+                                aria-hidden="true"
+                              />
+                              {item.name}</Link>
+                            
+                          
+                        </li>
+                      ))}
+                  </ul>
                 </li>
-                
               </ul>
             </nav>
           </div>
