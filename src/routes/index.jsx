@@ -20,6 +20,7 @@ export const RequestData = lazy(() => import("../pages/requestNewData"));
 export const SourceSystemDetails = lazy(() => import("../pages/SourceSystemDetails"));
 export const UseCaseDetails = lazy(() => import("../pages/useCaseDetails"));
 export const ViewBusinessTerm = lazy(() => import("../pages/viewBusinessTerm"));
+export const ManageOwnership = lazy(() => import("../pages/ManageOwnership"));
 
 
 
@@ -57,6 +58,7 @@ export default function Router() {
         { path: 'add-your-data', element: <AddYourData /> },
         { path: 'request-new-data', element: <RequestData /> },
         { path: 'view-business-term', element: <ViewBusinessTerm /> },
+        { path: 'manage-ownership', element: <ManageOwnership /> },
         // { path: 'use-case-details', element: <UseCaseDetails /> }
       ],
     },

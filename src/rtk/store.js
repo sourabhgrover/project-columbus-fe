@@ -6,6 +6,7 @@ import  addBusinessTermReducer  from './addBusinessTerm'
 import  useCaseReducer  from './useCase'
 import businessGlossaryReducer from './businessGlossarySlice';
 import domainReducer from './domainSlice';
+import ownershipReducer from './ownerShipSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     useCase: useCaseReducer,
     businessGlossary: businessGlossaryReducer,
     domains: domainReducer,
+    ownership: ownershipReducer,
   }
 })
 
