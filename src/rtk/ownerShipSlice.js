@@ -23,7 +23,7 @@ export const createOwnership = createAsyncThunk('ownership/createOwnership', asy
 
 export const updateOwnership = createAsyncThunk('ownership/updateOwnership', async (updatedOwnership, { rejectWithValue }) => {
   try {
-    const response = await apiClient.put(`/ownership/${updatedOwnership.id}`, updatedOwnership); // Replace with your API endpoint for updating ownership
+    const response = await apiClient.put(`/ownership/${updatedOwnership._id}`, updatedOwnership); // Replace with your API endpoint for updating ownership
     return response.data;
   } catch (error) {
     console.log(error);
@@ -34,6 +34,7 @@ export const updateOwnership = createAsyncThunk('ownership/updateOwnership', asy
 export const deleteOwnership = createAsyncThunk('ownership/deleteOwnership', async (ownershipId, { rejectWithValue }) => {
   try {
     await apiClient.delete(`/ownership/${ownershipId}`); // Replace with your API endpoint for deleting ownership
+    console.log(`Deleted ownership ID: ${ownershipId}`); // Debugging
     return ownershipId;
   } catch (error) {
     return rejectWithValue(error.response?.data?.error || 'Failed to delete ownership');
@@ -48,7 +49,12 @@ const ownershipSlice = createSlice({
     status: 'idle',
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetStatus: (state) => {
+      state.status = 'idle';
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Fetch Ownerships
@@ -72,7 +78,7 @@ const ownershipSlice = createSlice({
       })
       .addCase(createOwnership.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.ownerships.push(action.payload);
+        // state.ownerships.push(action.payload);
       })
       .addCase(createOwnership.rejected, (state, action) => {
         state.status = 'failed';
@@ -86,10 +92,10 @@ const ownershipSlice = createSlice({
       })
       .addCase(updateOwnership.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const index = state.ownerships.findIndex((ownership) => ownership.id === action.payload.id);
-        if (index !== -1) {
-          state.ownerships[index] = action.payload;
-        }
+        // const index = state.ownerships.findIndex((ownership) => ownership.id === action.payload.id);
+        // if (index !== -1) {
+        //   state.ownerships[index] = action.payload;
+        // }
       })
       .addCase(updateOwnership.rejected, (state, action) => {
         state.status = 'failed';
@@ -112,4 +118,9 @@ const ownershipSlice = createSlice({
   },
 });
 
+// Export the resetStatus action
+export const { resetStatus } = ownershipSlice.actions;
+
+
+// Export the reducer
 export default ownershipSlice.reducer;

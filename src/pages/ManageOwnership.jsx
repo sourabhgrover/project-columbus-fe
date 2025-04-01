@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import AddOwnershipDialog from "./AddOwnershipDialog"; // Replace with ownership-specific dialog
-import { fetchOwnerships, deleteOwnership } from "../rtk/ownerShipSlice"; // Use ownershipSlice actions
+import AddOwnershipDialog from "./AddOwnershipDialog";
+import { fetchOwnerships, deleteOwnership , resetStatus } from "../rtk/ownerShipSlice";
 import OwnershipCard from "../components/OwnershipCard";
 
 const ManageOwnership = () => {
   const dispatch = useDispatch();
   const { ownerships, status, error } = useSelector((state) => state.ownership);
-console.log(ownerships, status, error);
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchOwnerships());
@@ -16,38 +16,42 @@ console.log(ownerships, status, error);
   }, [status, dispatch]);
 
   const [open, setOpen] = useState(false);
+  const [selectedOwnership, setSelectedOwnership] = useState(null);
 
-  // Handlers for user actions
-  const handleAddOwnership = () => setOpen(true);
+  const handleAddOwnership = () => {
+    setSelectedOwnership(null); // Clear selected ownership when adding
+    setOpen(true);
+  };
 
-  // Handle delete logic with optimistic UI update
+  const handleEditOwnership = (ownership) => {
+    setSelectedOwnership(ownership); // Set selected ownership when editing
+    setOpen(true);
+  };
+
   const handleDeleteOwnership = (id) => {
-    const updatedOwnerships = ownerships.filter((ownership) => ownership.id !== id);
-    dispatch({ type: "ownership/updateOwnerships", payload: updatedOwnerships });
-
     dispatch(deleteOwnership(id))
       .unwrap()
-      .then(() => {
-        dispatch(fetchOwnerships());
+      .then((deletedId) => {
+        console.log(`Ownership with ID ${deletedId} deleted successfully!`); // Debugging
+      toast.success("Ownership deleted successfully!");
+      dispatch(resetStatus());
+        // dispatch(fetchOwnerships());
       })
       .catch((error) => {
         console.error("Error deleting ownership:", error);
-        dispatch({ type: "ownership/updateOwnerships", payload: ownerships });
       });
   };
 
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-12">
-        <div className="flex space-x-2">
-          <button
-            onClick={handleAddOwnership}
-            className="bg-blue-500 text-white py-3 px-6 rounded-md flex items-center hover:bg-blue-600 text-sm font-semibold"
-          >
-            <PlusIcon className="h-6 w-6 mr-3" />
-            Add new ownership
-          </button>
-        </div>
+        <button
+          onClick={handleAddOwnership}
+          className="bg-blue-500 text-white py-3 px-6 rounded-md flex items-center hover:bg-blue-600 text-sm font-semibold"
+        >
+          <PlusIcon className="h-6 w-6 mr-3" />
+          Add new ownership
+        </button>
       </div>
 
       {status === "loading" && <div>Loading...</div>}
@@ -58,14 +62,19 @@ console.log(ownerships, status, error);
           <OwnershipCard
             key={ownership._id}
             id={ownership._id}
-            name={ownership.name} // Replace with ownership-specific field
-            description={ownership.description} // Replace with ownership-specific field
-            onDelete={handleDeleteOwnership} // Pass ownership delete handler
+            name={ownership.name}
+            description={ownership.description}
+            onEdit={() => handleEditOwnership(ownership)} // Pass ownership to edit
+            onDelete={() => handleDeleteOwnership(ownership._id)} // Pass ownership ID to delete
           />
         ))}
       </div>
 
-      <AddOwnershipDialog open={open} setOpen={setOpen} />
+      <AddOwnershipDialog
+        open={open}
+        setOpen={setOpen}
+        ownership={selectedOwnership} // Pass selected ownership for editing
+      />
     </div>
   );
 };
