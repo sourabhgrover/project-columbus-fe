@@ -103,7 +103,7 @@ const ownershipSlice = createSlice({
       })
       .addCase(deleteOwnership.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.ownerships = state.ownerships.filter((ownership) => ownership.id !== action.payload);
+        state.ownerships = state.ownerships.filter((ownership) => ownership._id !== action.payload);
       })
       .addCase(deleteOwnership.rejected, (state, action) => {
         state.status = 'failed';
