@@ -13,7 +13,7 @@ export const createDomain = createAsyncThunk('domains/createDomain', async (newD
 });
 
 export const updateDomain = createAsyncThunk('domains/updateDomain', async (updatedDomain) => {
-  const response = await apiClient.put(`/domains/${updatedDomain.id}`, updatedDomain);
+  const response = await apiClient.put(`/domains/${updatedDomain._id}`, updatedDomain);
   return response.data;
 });
 
@@ -59,7 +59,7 @@ const domainSlice = createSlice({
         }
       })
       .addCase(deleteDomain.fulfilled, (state, action) => {
-        state.domains = state.domains.filter(domain => domain.id !== action.payload);
+        state.domains = state.domains.filter(domain => domain._id !== action.payload);
       });
   },
 });

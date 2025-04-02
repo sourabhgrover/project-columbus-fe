@@ -10,8 +10,9 @@ const AddDomainDialog = ({ open, setOpen, domain }) => {
 
   useEffect(() => {
     if (domain) {
-      setValue("name", domain.name);
-      setValue("description", domain.description);
+      setValue("domainName", domain.domainName);
+      setValue("domainProductOwner", domain.domainProductOwner);
+      setValue("domainDescription", domain.domainDescription);
     } else {
       reset();
     }
@@ -56,8 +57,18 @@ const AddDomainDialog = ({ open, setOpen, domain }) => {
                 Domain Name
               </label>
               <input
-                id="name"
-                {...register("name", { required: "Domain name is required" })}
+                id="domainName"
+                {...register("domainName", { required: "Domain name is required" })}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="domainProductOwner" className="block text-sm font-medium text-gray-700">
+                Domain Product Owner
+              </label>
+              <input
+                id="domainProductOwner"
+                {...register("domainProductOwner", { required: "Product owner is required" })}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
               />
             </div>
@@ -66,8 +77,8 @@ const AddDomainDialog = ({ open, setOpen, domain }) => {
                 Description
               </label>
               <input
-                id="description"
-                {...register("description")}
+                id="domainDescription"
+                {...register("domainDescription")}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
               />
             </div>
