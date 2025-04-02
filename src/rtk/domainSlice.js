@@ -30,7 +30,12 @@ const domainSlice = createSlice({
     status: 'idle',
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetStatus: (state) => {
+      state.status = 'idle';
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDomains.pending, (state) => {
@@ -59,4 +64,5 @@ const domainSlice = createSlice({
   },
 });
 
+export const { resetStatus } = domainSlice.actions;
 export default domainSlice.reducer;
